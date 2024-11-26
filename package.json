@@ -1,0 +1,19 @@
+{
+  "name": "cafearoma_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niic0o/cafeAroma_back.git"
+  },
+  "author": "Nicolas A. Sena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niic0o/cafeAroma_back/issues"
+  },
+  "homepage": "https://github.com/niic0o/cafeAroma_back#readme"
+}
