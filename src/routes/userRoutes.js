@@ -1,33 +1,20 @@
 const { Router } = require("express");
 const userRouter = Router();
+const userHandler = require("../handlers/userHandler");
 
 //Si mainRouter me pide un metodo HTTP para /api/users yo respondo.
 
-//rutas users
-userRouter.get("/", (req, res) => {
-  res.send("Estos son los usuarios");
-});
+//rutas users (delego al manejador el request y response de la solicitud)
+userRouter.get("/", userHandler.getAllUsersHandler);
 
-//buscar un usuario por su id
-userRouter.get("/:id", (req, res) => {
-  res.send(`Este es el detalle de un solo usuario con id: ${req.params.id}`);
-});
+userRouter.get("/:id", userHandler.getOneUserHandler);
 
-userRouter.get("/username/:user", (req, res) => {
-  res.send(`Este es el detalle de un solo usuario con user: ${req.params.user}`);
-});
+userRouter.get("/username/:user", userHandler.getUserByUsername);
 
-userRouter.post("/", (req, res) => {
-  res.send("Creando un usuario");
-});
+userRouter.post("/", userHandler.createUserHandler);
 
-userRouter.put("/:id", (req, res) => {
-  res.send(`Modificando un solo usuario con id: ${req.params.id}`);
-});
+userRouter.put("/:id", userHandler.updateUserHandler);
 
-userRouter.delete("/:id", (req, res) => {
-  res.send(`Eliminando un solo usuario con id: ${req.params.id}`);
-});
-
+userRouter.delete("/:id", userHandler.deleteUserHandler);
 
 module.exports = userRouter;

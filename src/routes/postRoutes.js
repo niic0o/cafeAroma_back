@@ -1,28 +1,18 @@
 const { Router } = require("express");
 const postRouter = Router();
+const postHandler = require("../handlers/postHandler");
 
 //si mainRouter me pide que responda por solicitudes HTTP para /api/post yo respondo.
 
-//rutas post
+//rutas post (delego al manejador el request y response de la solicitud)
+postRouter.get("/", postHandler.getAllPostHandler);
 
-postRouter.get("/", (req, res) => {
-  res.send("Estos son los posteos");
-});
+postRouter.get("/:id", postHandler.getOnePostHandler);
 
-postRouter.get("/:id", (req, res) => {
-  res.send(`Detalle de un posteo con id: ${req.params.id}`);
-});
+postRouter.post("/", postHandler.createPostHandler);
 
-postRouter.post("/", (req, res) => {
-  res.send("Creando un posteo");
-});
+postRouter.put("/:id", postHandler.updatePostHandler);
 
-postRouter.put("/:id", (req, res) => {
-  res.send(`Modificando el posteo con id: ${req.params.id}`);
-});
-
-postRouter.delete("/:id", (req, res) => {
-  res.send(`Eliminando el posteo con id: ${req.params.id}`);
-});
+postRouter.delete("/:id", postHandler.deletePostHandler);
 
 module.exports = postRouter;
