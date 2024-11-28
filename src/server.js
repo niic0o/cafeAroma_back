@@ -6,11 +6,11 @@ const mainRouter = require("./routes/main");
 
 const app = express();
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
-    res.send("Hola mundo!");
-  });
+  res.send("Hola mundo!");
+});
 
 // Para crear un middleware propio usar "next"
 app.use((req, res, next) => {
@@ -18,6 +18,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//main router va a responder con la ruta correspondiente cuando server reciba del cliente la solicitud
+//cuando llegue una solicitud a /api ... mainRouter se encargará de responder
 app.use("/api", mainRouter);
 module.exports = app;
