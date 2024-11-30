@@ -6,13 +6,9 @@ const postHandler = require("../handlers/postHandler");
 
 //rutas post (delego al manejador el request y response de la solicitud)
 postRouter.get("/", postHandler.getAllPostHandler);
-
 postRouter.get("/:id", postHandler.getOnePostHandler);
-
 postRouter.post("/", postHandler.createPostHandler);
-
 postRouter.put("/:id", postHandler.updatePostHandler);
-
 postRouter.delete("/:id", postHandler.deletePostHandler);
 
 module.exports = postRouter;
