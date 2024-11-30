@@ -11,8 +11,7 @@ const getAllUsersHandler = (req, res) => {
 const getOneUserHandler = (req, res) => {
   const { id } = req.params;
   console.log(`Se solicito datos del usuario: ${id}`);
-  //recordar que params envia 'string' hay que parsear a Number
-  const response = userController.getOneUserController(Number(id));
+  const response = userController.getOneUserController(id);
   res.send(response);
 };
 
@@ -31,21 +30,28 @@ const updateUserHandler = (req, res) => {
   const { id } = req.params;
   const { name, username, email } = req.body;
   const response = userController.updateUserController(
-    Number(id),
+    id,
     name,
     username,
     email
   );
   if (response === 500) {
     res.status(500);
-    res.send("La operacion falló");
+    res.send("La operación falló");
   } else {
     res.send(response);
   }
 };
 
 const deleteUserHandler = (req, res) => {
-  res.send(`Eliminando un solo usuario con id: ${req.params.id}`);
+  const {id} = req.params;
+  const response = userController.deleteUserController(id);
+  if (response === 500) {
+    res.status(500);
+    res.send("La operación falló");
+  } else {
+    res.send(response);
+  }
 };
 
 const getUserByUsername = (req, res) => {

@@ -11,7 +11,8 @@ const getAllUsersController = () => {
 Uso find para obtener el primer objeto que cumpla con la condicion
 */
 const getOneUserController = (id) => {
-  const userById = users.find((user) => user.id === id);
+  //recordar que params envia 'string' hay que parsear a Number  
+  const userById = users.find((user) => user.id === Number(id));
   return userById;
 };
 /*
@@ -37,12 +38,28 @@ primero verifica que sea objeto y no nulo
 caso contrario devuelve un error 500
 */
 const updateUserController = (id, name, username, email) => {
-  const oldUser = userController.getOneUserController(id); //trae un usuario por id
+  const oldUser = userController.getOneUserController(Number(id)); //trae un usuario por id
   const newUser = { name, username, email };
   if (typeof oldUser === 'object' && oldUser !== null) {
     Object.assign(oldUser, newUser);
     return newUser;
   } else {
+    return 500;
+  }
+};
+
+/*
+Eeliminación fisica del usuario de la base de datos
+habría que considerar una eliminacion logica
+*/
+const deleteUserController = (id) =>{
+  const index = users.findIndex((user) => user.id === Number(id));
+  let deletingUser = null;
+  //si findIndex no encuentra el elemento retorna -1
+  if(index !== -1){
+    [deletingUser] = users.splice(index, 1);
+    return deletingUser;
+  }else{
     return 500;
   }
 };
@@ -53,6 +70,7 @@ userController = {
   getUserByUsernameController,
   getOneUserController,
   updateUserController,
+  deleteUserController,
 };
 
 module.exports = userController;
