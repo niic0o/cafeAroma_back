@@ -3,23 +3,45 @@
 // importo al controlador para delegar las tareas de manipulacion de datos
 const userController = require("../controllers/userController");
 //funciones de usuario
+
+/*
+Funcion para el manejo de errores
+res: respuesta al cliente,
+error: contiene la excepcion del controlador
+statusCode: recibe int con el codigo de estado
+*/
+const sendErrorResponse = (res, error, statusCode) => {
+  res.status(statusCode).send({ Error: error.message });
+};
+
 const getAllUsersHandler = (req, res) => {
-  const response = userController.getAllUsersController();
-  res.send(response);
+  try {
+    const response = userController.getAllUsersController();
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, 404);
+  }
 };
 
 const getOneUserHandler = (req, res) => {
-  const { id } = req.params;
-  console.log(`Se solicito datos del usuario: ${id}`);
-  const response = userController.getOneUserController(id);
-  res.send(response);
+  try {
+    const { id } = req.params;
+    const response = userController.getOneUserController(id);
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, 404);
+  }
 };
 
 const createUserHandler = (req, res) => {
-  const { name, username, email } = req.body;
-  const response = userController.createUserController(name, username, email);
-  res.status(201); //codigo de usuario creado correctamente
-  res.send(response); //si agrego mensaje a send debo parsear el objeto
+  try {
+    const { name, username, email } = req.body;
+    const response = userController.createUserController(name, username, email);
+    res.status(201); //codigo de usuario creado correctamente
+    res.send(response); //si agrego mensaje a send debo parsear el objeto
+  } catch (error) {
+    sendErrorResponse(res, error, 400);
+  }
 };
 
 /*
@@ -27,41 +49,39 @@ edita un usuario por su id
 response devuelve el nuevo usuario, o 500 si no encontro al usuario por su id
 */
 const updateUserHandler = (req, res) => {
-  const { id } = req.params;
-  const { name, username, email } = req.body;
-  const response = userController.updateUserController(
-    id,
-    name,
-    username,
-    email
-  );
-  if (response === 500) {
-    res.status(500);
-    res.send("La operación falló");
-  } else {
+  try {
+    const { id } = req.params;
+    const { name, username, email } = req.body;
+    const response = userController.updateUserController(
+      id,
+      name,
+      username,
+      email
+    );
     res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, 400);
   }
 };
 
 const deleteUserHandler = (req, res) => {
-  const {id} = req.params;
-  const response = userController.deleteUserController(id);
-  if (response === 500) {
-    res.status(500);
-    res.send("La operación falló");
-  } else {
+  try {
+    const { id } = req.params;
+    const response = userController.deleteUserController(id);
     res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, 404);
   }
 };
 
 const getUserByUsername = (req, res) => {
-  const { username } = req.query;
-  if (username) {
+  try {
+    const { username } = req.query;
     const response = userController.getUserByUsernameController(username);
     res.status(200);
     res.send(response);
-  } else {
-    res.send("No se encontro ningun usuario con ese username");
+  } catch (error) {
+    sendErrorResponse(res, error, error.statusCode );
   }
 };
 

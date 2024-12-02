@@ -1,7 +1,7 @@
 /*
 Se usara un arreglo cargado de manera estatica en tiempo real hasta que se construya la base de datos
 */
-const users = [
+const users = [/*
   {
     id: 1,
     name: "jose",
@@ -31,7 +31,7 @@ const users = [
     name: 'juan',
     username: 'juanito',
     email: 'juanito@gmail.com'
-  },
+  },*/
 ];
 
 module.exports = users;
