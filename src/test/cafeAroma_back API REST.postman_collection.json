@@ -54,7 +54,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"jose\",\r\n    \"username\": \"josesito\",\r\n    \"email\": \"josesito@gmail.com\"\r\n}",
+							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Juan Martín\",\r\n  \"apellido\": \"Peralta\",\r\n  \"username\": \"tincho\",\r\n  \"password\": \"1234\",\r\n  \"email\": \"juan.perez@example.com\",\r\n  \"provincia\": \" \",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Calle Falsa 123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Martin Peralta\",\r\n    \"username\": \"peraltita\",\r\n    \"email\": \"peraltita@gmail.com\"\r\n}",
+							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Pedro Martin\",\r\n  \"apellido\": \" \",\r\n  \"username\": \"per4lt1t4\",\r\n  \"password\": \"1234/#abcd\",\r\n  \"email\": \"juan.perez@example\",\r\n  \"provincia\": \"Buenos Aires\",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Juan jose paso 1010\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,7 +90,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/users/1",
+							"raw": "localhost:3001/api/users/2",
 							"host": [
 								"localhost"
 							],
@@ -98,7 +98,7 @@
 							"path": [
 								"api",
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -130,7 +130,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/username/Martin?username=tincho",
+							"raw": "localhost:3001/api/users/username/Martin?username=pedrocito",
 							"host": [
 								"localhost"
 							],
@@ -144,13 +144,28 @@
 							"query": [
 								{
 									"key": "username",
-									"value": "tincho",
+									"value": "pedrocito",
 									"description": "true"
 								},
 								{
 									"key": "username",
 									"value": null,
 									"description": "undefined",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "\"      \"  ",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "123",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "12345678",
 									"disabled": true
 								}
 							]

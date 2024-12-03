@@ -90,7 +90,7 @@ const updateUserHandler = (req, res) => {
     const response = userController.updateUserController(id, oneUser);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 400);
+    sendErrorResponse(res, error, 404);
   }
 };
 
@@ -105,8 +105,13 @@ const deleteUserHandler = (req, res) => {
 };
 
 const getUserByUsername = (req, res) => {
+  const username = req.query;
+  const { error } = validateUser.getUserByUsernameValidation.validate(username);
+  if(error){
+    return res.status(400).send({ error: error.details[0].message });
+  }
   try {
-    const { username } = req.query;
+    const {username} = req.query; // para la linea siguiente necesito enviar 'string' no 'object'
     const response = userController.getUserByUsernameController(username);
     res.status(200);
     res.send(response);

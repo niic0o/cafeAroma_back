@@ -208,10 +208,31 @@ const createUserValidation = joi.object({
 
 const updateUserValidation = createUserValidation;
 
+const getUserByUsernameValidation = joi.object({
+  username: joi
+    .string()
+    .min(6)
+    .max(12)
+    .trim()   
+    .required()
+    .pattern(/^[a-zA-Z0-9_]*$/) // Permitir solo letras, números y guiones bajos
+    .messages({
+      "string.base": "El campo usuario debe ser un texto.",
+      "string.empty": "El campo usuario es requerido.",
+      "string.min": "El campo usuario debe tener al menos {#limit} caracteres.",
+      "string.max":
+        "El campo usuario no debe tener más de {#limit} caracteres.",
+      "string.pattern.base":
+        "El campo usuario solo puede contener letras, números y guiones bajos.",
+      "any.required": "El campo usuario es requerido.",
+    }),
+});
+
 const validateUser = {
   createUserValidation,
   loginValidation,
   updateUserValidation,
+  getUserByUsernameValidation,
 };
 
 module.exports = validateUser;
