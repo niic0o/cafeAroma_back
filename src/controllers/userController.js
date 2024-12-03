@@ -30,24 +30,29 @@ const getUserByUsernameController = (username) => {
   // Verifica si el username es válido
   if (typeof username !== "string" || username.trim() === "") {
     //como tengo dos tipos de errores throw un objeto al catch con la propiedad que necesita.
-    throw { message: 'El username debe contener carácteres y el campo no debe estar vacío.',
-  statusCode: 400};
+    throw {
+      message:
+        "El username debe contener carácteres y el campo no debe estar vacío.",
+      statusCode: 400,
+    };
   }
   const usersByName = users.filter((user) => user.username === username);
   // Verifica si se encontró algún usuario
   if (usersByName.length === 0) {
-    throw { message: 'No se encontró ningún usuario con ese username.',
-  statusCode: 404 };
+    throw {
+      message: "No se encontró ningún usuario con ese username.",
+      statusCode: 404,
+    };
   }
   return usersByName;
 };
 
-const createUserController = (name, username, email) => {
-  if (!name || !username || !email) {
+const createUserController = (oneUser) => {
+  if (!oneUser) {
     throw new Error("Faltan campos obligatorios o los datos son inválidos");
   }
   const id = users.length + 1; //id is Number
-  const newUser = { id, name, username, email };
+  const newUser = { id, ...oneUser};
   users.push(newUser);
   console.log(users);
   return newUser;
@@ -58,9 +63,8 @@ edita un usuario por su id
 primero verifica que sea objeto y no nulo
 caso contrario devuelve un error 500
 */
-const updateUserController = (id, name, username, email) => {
+const updateUserController = (id, newUser) => {
   const oldUser = userController.getOneUserController(Number(id)); //trae un usuario por id
-  const newUser = { name, username, email };
   if (typeof oldUser === "object" && oldUser !== null) {
     Object.assign(oldUser, newUser);
     return newUser;
