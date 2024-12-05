@@ -3,6 +3,7 @@ const express = require("express");
 //middleware para el registro y depuracion de las solicitudes http
 const morgan = require("morgan");
 const mainRouter = require("./routes/main");
+const connectDB = require("./config/db"); // Importa la configuración de la base de datos
 
 const app = express();
 
@@ -16,9 +17,9 @@ app.use(morgan("dev"));
 app.use((req, res, next) => {
   console.log("Acabo de recibir una solicitud");
   //cuando llegue una solicitud a /api ... mainRouter se encargará de responder
-  app.use("/api", mainRouter);
   next();
 });
 
-
+app.use("/api", mainRouter);
+connectDB();
 module.exports = app;
