@@ -1,7 +1,20 @@
 /*
 Se usara un arreglo cargado de manera estatica en tiempo real hasta que se construya la base de datos
 */
-const users = [/*
+const users = [
+  {"id": 1,
+  "categoria": 'cliente',
+  "dni": 23568974,
+  "nombre": "Juan Martín",
+  "apellido": "Peralta",
+  "username": "tincho",
+  "password": "1234*abcd",
+  "email": "juan.perez@example.com",
+  "provincia": "Corrientes ",
+  "ciudad": "La Plata",
+  "domicilio": "Calle Falsa 123",
+  "eliminado": "NO",
+  },/*
   {
     id: 1,
     name: "jose",

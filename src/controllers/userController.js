@@ -52,7 +52,7 @@ const createUserController = (oneUser) => {
     throw new Error("Faltan campos obligatorios o los datos son inválidos");
   }
   const id = users.length + 1; //id is Number
-  const newUser = { id, ...oneUser};
+  const newUser = { id, ...oneUser };
   users.push(newUser);
   console.log(users);
   return newUser;
@@ -79,7 +79,7 @@ const updateUserController = (id, newUser) => {
 Eeliminación fisica del usuario de la base de datos
 habría que considerar una eliminacion logica
 */
-const deleteUserController = (id) => {
+const physicalDeleteUserController = (id) => {
   const index = users.findIndex((user) => user.id === Number(id));
   let deletingUser = null;
   //si findIndex no encuentra el elemento retorna -1
@@ -91,13 +91,98 @@ const deleteUserController = (id) => {
   }
 };
 
+const setLikeAdminController = (id) => {
+  // Trae un usuario por id
+  const theClient = userController.getOneUserController(Number(id));
+
+  // Verifica si el cliente existe
+  if (
+    typeof theClient === "object" &&
+    theClient !== null &&
+    theClient.categoria === "cliente"
+  ) {
+    const newCategoria = "admin";
+
+    // Actualiza la categoría
+    theClient.categoria = newCategoria;
+
+    // Guarda los cambios en la base de datos
+    const theAdmin = userController.updateUserController(id, theClient);
+
+    // Devuelve el usuario actualizado
+    return theAdmin;
+  } else {
+    throw new Error(
+      "No se pudó realizar la operación, el usuario ya es admin o no existe en la base de datos"
+    );
+  }
+};
+
+const setLikeClientController = (id) => {
+  const theAdmin = userController.getOneUserController(Number(id));
+  if (
+    typeof theAdmin === "object" &&
+    theAdmin!== null &&
+    theAdmin.categoria === "admin"
+  ) {
+    const newCategoria = "cliente";
+    theAdmin.categoria = newCategoria;
+    const theClient = userController.updateUserController(id, theAdmin);
+    return theClient;
+  } else {
+    throw new Error(
+      "No se pudó realizar la operación, el usuario ya es un cliente o no existe en la base de datos"
+    );
+  }
+};
+
+const deleteUserController = (id) => {
+  const toDelete = userController.getOneUserController(Number(id));
+  if (
+    typeof toDelete === "object" &&
+    toDelete!== null &&
+    toDelete.eliminado === "NO"
+  ) {
+    const eliminado = "SI";
+    toDelete.eliminado = eliminado;
+    const deleted = userController.updateUserController(id, toDelete);
+    return deleted;
+  } else {
+    throw new Error(
+      "No se pudó realizar la operación, el usuario no existe"
+    );
+  }
+};
+
+const resetUserController = (id) => {
+  const toReset = userController.getOneUserController(Number(id));
+  if (
+    typeof toReset === "object" &&
+    toReset!== null &&
+    toReset.eliminado === "SI"
+  ) {
+    const eliminado = "NO";
+    toReset.eliminado = eliminado;
+    const restore = userController.updateUserController(id, toReset);
+    return restore;
+  } else {
+    throw new Error(
+      "No se pudó realizar la operación, algo salio mal o el usuario no se encuentra eliminado"
+    );
+  }
+};
+
 const userController = {
   createUserController,
   getAllUsersController,
   getUserByUsernameController,
   getOneUserController,
   updateUserController,
+  physicalDeleteUserController,
+  setLikeAdminController,
+  setLikeClientController,
   deleteUserController,
+  resetUserController,
 };
 
 module.exports = userController;

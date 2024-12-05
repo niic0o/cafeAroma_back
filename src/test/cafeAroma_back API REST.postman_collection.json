@@ -105,12 +105,12 @@
 					"response": []
 				},
 				{
-					"name": "DeleteUser",
+					"name": "PhisicalDeleteUser",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/1",
+							"raw": "localhost:3001/api/users/deletePermanently/1",
 							"host": [
 								"localhost"
 							],
@@ -118,6 +118,7 @@
 							"path": [
 								"api",
 								"users",
+								"deletePermanently",
 								"1"
 							]
 						}
@@ -168,6 +169,90 @@
 									"value": "12345678",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetLikeAdmin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/users/changeClient/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"changeClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetLikeClient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/users/changeAdmin/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"changeAdmin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/users/deleteUser/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"deleteUser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/users/resetUser/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"resetUser",
+								"1"
 							]
 						}
 					},
