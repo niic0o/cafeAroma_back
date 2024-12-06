@@ -16,26 +16,42 @@ const sendErrorResponse = (res, error, statusCode) => {
   res.status(statusCode).send({ Error: error.message });
 };
 
-const getAllUsersHandler = (req, res) => {
+const getAllUsersHandler = async (req, res) => {
   try {
-    const response = userController.getAllUsersController();
+    const response = await userController.getAllUsersController();
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const getOneUserHandler = (req, res) => {
+const getOneUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = userController.getOneUserController(id);
+    const response = await userController.getOneUserController(id);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const createUserHandler = (req, res) => {
+const getUserByUsername = async (req, res) => {
+  const username = req.query;
+  const { error } = validateUser.getUserByUsernameValidation.validate(username);
+  if (error) {
+    return res.status(400).send({ error: error.details[0].message });
+  }
+  try {
+    const { username } = req.query; // para la linea siguiente necesito enviar 'string' no 'object'
+    const response = await userController.getUserByUsernameController(username);
+    res.status(200);
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, error.statusCode);
+  }
+};
+
+const createUserHandler = async (req, res) => {
   //control de valicacion de datos recibidos
   const oneUser = ({
     dni,
@@ -55,11 +71,11 @@ const createUserHandler = (req, res) => {
   }
   //doble verificacion y control de otros errores.
   try {
-    const response = userController.createUserController(oneUser);
+    const response = await userController.createUserController(oneUser);
     res.status(201); //codigo de usuario creado correctamente
     res.send(response); //si agrego mensaje a send debo parsear el objeto
   } catch (error) {
-    sendErrorResponse(res, error, 400);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
@@ -67,7 +83,7 @@ const createUserHandler = (req, res) => {
 edita un usuario por su id
 response devuelve el nuevo usuario, o 500 si no encontro al usuario por su id
 */
-const updateUserHandler = (req, res) => {
+const updateUserHandler = async (req, res) => {
   const { id } = req.params;
   //control de valicacion de datos recibidos
   const oneUser = ({
@@ -88,76 +104,60 @@ const updateUserHandler = (req, res) => {
   }
   //doble verificacion y control de otros errores.
   try {
-    const response = userController.updateUserController(id, oneUser);
-    res.send(response);
-  } catch (error) {
-    sendErrorResponse(res, error, 404);
-  }
-};
-
-const physicalDeleteUserHandler = (req, res) => {
-  try {
-    const { id } = req.params;
-    const response = userController.physicalDeleteUserController(id);
-    res.send(response);
-  } catch (error) {
-    sendErrorResponse(res, error, 404);
-  }
-};
-
-const getUserByUsername = (req, res) => {
-  const username = req.query;
-  const { error } = validateUser.getUserByUsernameValidation.validate(username);
-  if (error) {
-    return res.status(400).send({ error: error.details[0].message });
-  }
-  try {
-    const { username } = req.query; // para la linea siguiente necesito enviar 'string' no 'object'
-    const response = userController.getUserByUsernameController(username);
-    res.status(200);
+    const response = await userController.updateUserController(id, oneUser);
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const setLikeAdminHandler = (req, res) => {
+const physicalDeleteUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = userController.setLikeAdminController(id);
+    const response = await userController.physicalDeleteUserController(id);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const setLikeClientHandler = (req, res) => {
+const setLikeAdminHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = userController.setLikeClientController(id);
+    const response = await userController.setLikeAdminController(id);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const deleteUserHandler = (req, res) => {
+const setLikeClientHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = userController.deleteUserController(id);
+    const response = await userController.setLikeClientController(id);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 
-const resetUserHandler = (req, res) => {
+const deleteUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = userController.resetUserController(id);
+    const response = await userController.deleteUserController(id);
     res.send(response);
   } catch (error) {
-    sendErrorResponse(res, error, 404);
+    sendErrorResponse(res, error, error.statusCode);
+  }
+};
+
+const resetUserHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await userController.resetUserController(id);
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, error.statusCode);
   }
 };
 

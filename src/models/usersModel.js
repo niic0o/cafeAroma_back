@@ -3,6 +3,20 @@ const mongoose = require("mongoose");
 // Definir el esquema del usuario. REF: Docs/scheme_users_DER.png
 const userSchema = new mongoose.Schema(
   {
+    dni: {
+      type: Number,
+      required: true, // El DNI es obligatorio
+      unique: true,
+      integer: true, // Debe ser un número entero
+      validate: {
+        validator: function (value) {
+          const dniString = value.toString();
+          const length = dniString.length;
+          return length >= 6 && length <= 8; // Verificar que el DNI tenga entre 6 y 8 dígitos
+        },
+        message: "El campo DNI debe tener entre 6 y 8 dígitos.",
+      },
+    },
     categoria: {
       type: String,
       default: "cliente", // Valor por defecto
@@ -71,25 +85,12 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 100,
     },
-    dni: {
-      type: Number,
-      required: true, // El DNI es obligatorio
-      integer: true, // Debe ser un número entero
-      validate: {
-        validator: function (value) {
-          const dniString = value.toString();
-          const length = dniString.length;
-          return length >= 6 && length <= 8; // Verificar que el DNI tenga entre 6 y 8 dígitos
-        },
-        message: "El campo DNI debe tener entre 6 y 8 dígitos.",
-      },
-    },
     eliminado: {
-        type: String,
-        default: 'NO', // Valor por defecto
-        minlength: 2, // Mínimo 2 caracteres
-        maxlength: 2, // Máximo 2 caracteres
-      },
+      type: String,
+      default: "NO", // Valor por defecto
+      minlength: 2, // Mínimo 2 caracteres
+      maxlength: 2, // Máximo 2 caracteres
+    },
   },
   {
     timestamps: true, // Esto agrega automáticamente las fechas de creación y actualización

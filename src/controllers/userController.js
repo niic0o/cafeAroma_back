@@ -1,61 +1,107 @@
 // cuando un handler me pida que manipule datos, me los pasa.
 // tomo decisiones y envio al modelo logico db para que se conecte con la bdd fisica
 // le devuelvo el proceso al handler para que responda la solicitud http
-const users = require("../db/dataBase");
+const users = require("../models/usersModel");
+/*
+esto es diseñado para reducir repeticion de codigo ya que cada funcion puede encontrarse con la bdd no activa
+*/
+const throwError500 = (error) => {
+  throw {
+    message:
+      "Ups, se desenchufó un cable o la base de datos no funciona " +
+      error.message,
+    statusCode: 500, //error del servidor
+  };
+};
 
-const getAllUsersController = () => {
-  console.log(users);
-  if (users.length === 0) {
-    throw new Error("No se encontró usuarios registrados");
+const getAllUsersController = async () => {
+  try {
+    const allUsers = await users.find();
+    if (allUsers.length === 0) {
+      throw {
+        message: "No se encontró usuarios registrados",
+        statusCode: 404, // not found
+      };
+    }
+    return allUsers;
+  } catch (error) {
+    throwError500(error);
   }
-  return users;
 };
 
 /*
 Uso find para obtener el primer objeto que cumpla con la condicion
 */
-const getOneUserController = (id) => {
-  //recordar que params envia 'string' hay que parsear a Number
-  const userById = users.find((user) => user.id === Number(id));
-  if (!userById) {
-    throw new Error("No se encontró el usuario con el ID proporcionado");
+const getOneUserController = async (id) => {
+  try {
+    //recordar que params envia 'string' hay que parsear a Number
+    const userById = await users.findById(id);
+    if (!userById) {
+      throw {
+        message: "No se encontró el usuario con el ID proporcionado",
+        statusCode: 404,
+      };
+    }
+    return userById;
+  } catch (error) {
+    throwError500(error);
   }
-  return userById;
 };
 /*
 creo un arreglo filtrando los usurios de mismo username
-sugerencia, el username deberia ser un valor unico en la bdd
 */
-const getUserByUsernameController = (username) => {
+const getUserByUsernameController = async (username) => {
   // Verifica si el username es válido
   if (typeof username !== "string" || username.trim() === "") {
     //como tengo dos tipos de errores throw un objeto al catch con la propiedad que necesita.
     throw {
       message:
         "El username debe contener carácteres y el campo no debe estar vacío.",
-      statusCode: 400,
+      statusCode: 400, //bad request
     };
   }
-  const usersByName = users.filter((user) => user.username === username);
-  // Verifica si se encontró algún usuario
-  if (usersByName.length === 0) {
-    throw {
-      message: "No se encontró ningún usuario con ese username.",
-      statusCode: 404,
-    };
+  try {
+    const usersByName = await users.find({ username });
+    // Verifica si se encontró algún usuario
+    if (usersByName.length === 0) {
+      throw {
+        message: "No se encontró ningún usuario con ese username.",
+        statusCode: 404, //not found
+      };
+    }
+    return usersByName;
+  } catch (error) {
+    throwError500(error);
   }
-  return usersByName;
 };
 
-const createUserController = (oneUser) => {
+const createUserController = async (oneUser) => {
   if (!oneUser) {
-    throw new Error("Faltan campos obligatorios o los datos son inválidos");
+    throw {
+      message: "Hubo un error con los datos enviados, intente otra vez",
+      statusCode: 400, //bad request
+    };
   }
-  const id = users.length + 1; //id is Number
-  const newUser = { id, ...oneUser };
-  users.push(newUser);
-  console.log(users);
-  return newUser;
+  const newUser = new users(oneUser);
+  try {
+    const savedUser = await newUser.save(); // Intentar guardar el nuevo usuario
+    return savedUser;
+  } catch (error) {
+    // Manejo de errores de Mongoose
+    if (error.name === "ValidationError") {
+      throw {
+        message: "Error de validación en la base de datos: " + error.message,
+        statusCode: 400, // Bad Request
+      };
+    } else if (error.code === 11000) {
+      // Código de error para violación de unicidad
+      throw {
+        message: "El usuario ya existe. Por favor, elige otro.",
+        statusCode: 409, // Conflict
+      };
+    }
+    throwError500(error);
+  }
 };
 
 /*
@@ -63,15 +109,23 @@ edita un usuario por su id
 primero verifica que sea objeto y no nulo
 caso contrario devuelve un error 500
 */
-const updateUserController = (id, newUser) => {
-  const oldUser = userController.getOneUserController(Number(id)); //trae un usuario por id
-  if (typeof oldUser === "object" && oldUser !== null) {
-    Object.assign(oldUser, newUser);
-    return newUser;
-  } else {
-    throw new Error(
-      "Faltan campos obligatorios para la actualización o son inválidos"
+
+const updateUserController = async (id, newUser) => {
+  if (!newUser) {
+    throw {
+      message: "Hubo un error con los datos enviados, intente otra vez",
+      statusCode: 400, //bad request
+    };
+  }
+  try {
+    const updatedUser = await users.findByIdAndUpdate(
+      id,
+      newUser,
+      { new: true } // Retorna el producto actualizado
     );
+    return updatedUser;
+  } catch (error) {
+    throwError500(error);
   }
 };
 
@@ -79,97 +133,91 @@ const updateUserController = (id, newUser) => {
 Eeliminación fisica del usuario de la base de datos
 habría que considerar una eliminacion logica
 */
-const physicalDeleteUserController = (id) => {
-  const index = users.findIndex((user) => user.id === Number(id));
-  let deletingUser = null;
-  //si findIndex no encuentra el elemento retorna -1
-  if (index !== -1) {
-    [deletingUser] = users.splice(index, 1);
-    return deletingUser;
-  } else {
-    throw new Error("El usuario que se intenta eliminar no existe");
+const physicalDeleteUserController = async (id) => {
+  try {
+    const deletedUser = await users.findByIdAndDelete(id); // Elimina por ID
+
+    if (!deletedUser) {
+      throw {
+        message: "Usuario no encontrado",
+        statusCode: 404, // Not Found
+      };
+    }
+
+    return deletedUser;
+  } catch (error) {
+    throwError500(error);
   }
 };
 
-const setLikeAdminController = (id) => {
-  // Trae un usuario por id
-  const theClient = userController.getOneUserController(Number(id));
+const setLikeAdminController = async (id) => {
+  try {
+    // Intenta actualizar la categoría del usuario a "admin"
+    const updatedUser  = await userController.updateUserController(id, { categoria: "admin" });
 
-  // Verifica si el cliente existe
-  if (
-    typeof theClient === "object" &&
-    theClient !== null &&
-    theClient.categoria === "cliente"
-  ) {
-    const newCategoria = "admin";
-
-    // Actualiza la categoría
-    theClient.categoria = newCategoria;
-
-    // Guarda los cambios en la base de datos
-    const theAdmin = userController.updateUserController(id, theClient);
+    // Verifica si se encontró y actualizó el usuario
+    if (!updatedUser ) {
+      throw {
+        message: "No se pudo realizar la operación, el usuario no existe o ya es admin",
+        statusCode: 400,
+      };
+    }
 
     // Devuelve el usuario actualizado
-    return theAdmin;
-  } else {
-    throw new Error(
-      "No se pudó realizar la operación, el usuario ya es admin o no existe en la base de datos"
-    );
-  }
+    return updatedUser ;
+  } catch (error) {
+throwError500(error);
 };
+}
 
-const setLikeClientController = (id) => {
-  const theAdmin = userController.getOneUserController(Number(id));
-  if (
-    typeof theAdmin === "object" &&
-    theAdmin!== null &&
-    theAdmin.categoria === "admin"
-  ) {
-    const newCategoria = "cliente";
-    theAdmin.categoria = newCategoria;
-    const theClient = userController.updateUserController(id, theAdmin);
-    return theClient;
-  } else {
-    throw new Error(
-      "No se pudó realizar la operación, el usuario ya es un cliente o no existe en la base de datos"
-    );
-  }
+const setLikeClientController = async (id) => {
+  try {
+    // Intenta actualizar la categoría del usuario a "cliente"
+    const updatedUser  = await userController.updateUserController(id, { categoria: "cliente" });
+
+    // Verifica si se encontró y actualizó el usuario
+    if (!updatedUser ) {
+      throw {
+        message: "No se pudo realizar la operación, el usuario no existe o ya es cliente",
+        statusCode: 400,
+      };
+    }
+
+    // Devuelve el usuario actualizado
+    return updatedUser ;
+  } catch (error) {
+throwError500(error);
+};
 };
 
 const deleteUserController = (id) => {
-  const toDelete = userController.getOneUserController(Number(id));
-  if (
-    typeof toDelete === "object" &&
-    toDelete!== null &&
-    toDelete.eliminado === "NO"
-  ) {
-    const eliminado = "SI";
-    toDelete.eliminado = eliminado;
-    const deleted = userController.updateUserController(id, toDelete);
-    return deleted;
-  } else {
-    throw new Error(
-      "No se pudó realizar la operación, el usuario no existe"
-    );
-  }
+  try { 
+    const updatedUser  = await userController.updateUserController(id, { eliminado: "SI" });
+    if (!updatedUser ) {
+      throw {
+        message: "No se pudo realizar la operación, el usuario no existe",
+        statusCode: 400,
+      };
+    }
+    return updatedUser ;
+  } catch (error) {
+throwError500(error);
+};
 };
 
-const resetUserController = (id) => {
-  const toReset = userController.getOneUserController(Number(id));
-  if (
-    typeof toReset === "object" &&
-    toReset!== null &&
-    toReset.eliminado === "SI"
-  ) {
-    const eliminado = "NO";
-    toReset.eliminado = eliminado;
-    const restore = userController.updateUserController(id, toReset);
-    return restore;
-  } else {
-    throw new Error(
-      "No se pudó realizar la operación, algo salio mal o el usuario no se encuentra eliminado"
-    );
-  }
+const resetUserController = async (id) => {
+  try { 
+    const updatedUser  = await userController.updateUserController(id, { eliminado: "NO" });
+    if (!updatedUser ) {
+      throw {
+        message: "No se pudo realizar la operación, el usuario no existe",
+        statusCode: 400,
+      };
+    }
+    return updatedUser ;
+  } catch (error) {
+throwError500(error);
+};
 };
 
 const userController = {
