@@ -36,8 +36,8 @@ const getOneUserHandler = async (req, res) => {
 };
 
 const getUserByUsername = async (req, res) => {
-  const username = req.query;
-  const { error } = validateUser.getUserByUsernameValidation.validate(username);
+  const username = req.query.username;
+  const { error } = validateUser.getUserByUsernameValidation.validate({username});
   if (error) {
     return res.status(400).send({ error: error.details[0].message });
   }

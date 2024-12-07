@@ -13,20 +13,22 @@ usar .trim() en string para evitar que lleguen espacios en blanco al inicio y fi
 const joi = require("joi");
 
 const loginValidation = joi.object({
-  username: joi.string()
-    .min(6)
-    .max(12)
-    .trim() // Elimina espacios en blanco al inicio y al final
-    .pattern(/^[a-zA-Z0-9_]*$/) // Permitir solo letras, números y guiones bajos
-    .required() // Hacer que el username sea obligatorio
-    .messages({
-      "string.base": "El campo usuario debe ser un texto.",
-      "string.empty": "El campo usuario es requerido.",
-      "string.min": "El campo usuario debe tener al menos {#limit} caracteres.",
-      "string.max": "El campo usuario no debe tener más de {#limit} caracteres.",
-      "string.pattern.base": "El campo usuario solo puede contener letras, números y guiones bajos.",
-      "any.required": "El campo usuario es requerido.",
-    }),
+  email: joi.string()
+  .email()
+  .min(4)
+  .max(100)
+  .required()
+  .messages({
+    "string.base": "El campo correo electrónico debe ser un texto.",
+    "string.empty": "El campo correo electrónico es requerido.",
+    "string.min":
+      "El campo correo electrónico debe tener al menos {#limit} caracteres.",
+    "string.max":
+      "El campo correo electrónico no debe tener más de {#limit} caracteres.",
+    "string.email":
+      "El campo correo electrónico debe ser un correo electrónico válido.",
+    "any.required": "El campo correo electrónico es requerido.",
+  }),
 
   password: joi.string()
     .min(6)

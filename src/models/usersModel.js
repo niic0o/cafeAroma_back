@@ -47,12 +47,12 @@ const userSchema = new mongoose.Schema(
       maxlength: 12,
       match: /^[a-zA-Z0-9_]*$/, // Permitir solo letras, números y guiones bajos
     },
-    password: {
+    password: { //los campos comentados se debe a que pass sera hasheado
       type: String,
       required: true, // La contraseña es obligatoria
-      minlength: 6,
-      maxlength: 16,
-      match: /^(?=.*[0-9])(?=.*[!@#$%^&*])/, // Al menos un número y un carácter especial
+      //minlength: 6,
+      //maxlength: 16,
+      //match: /^(?=.*[0-9])(?=.*[!@#$%^&*])/, // Al menos un número y un carácter especial
     },
     email: {
       type: String,

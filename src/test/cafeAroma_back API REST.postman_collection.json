@@ -14,14 +14,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users",
+							"raw": "localhost:3001/api/users/admin/usuarios",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"admin",
+								"usuarios"
 							]
 						}
 					},
@@ -54,7 +56,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Juan Martín\",\r\n  \"apellido\": \"Peralta\",\r\n  \"username\": \"tincho\",\r\n  \"password\": \"1234\",\r\n  \"email\": \"juan.perez@example.com\",\r\n  \"provincia\": \" \",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Calle Falsa 123\"\r\n}",
+							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Juan Martín\",\r\n  \"apellido\": \"Peralta\",\r\n  \"username\": \"tincho\",\r\n  \"password\": \"1234*abcd\",\r\n  \"email\": \"juan.perez@example.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Calle Falsa 123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -62,14 +64,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/users",
+							"raw": "localhost:3001/api/users/registrarUsuario",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"registrarUsuario"
 							]
 						}
 					},
@@ -128,10 +131,20 @@
 				{
 					"name": "GetUserByUsername",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTNiMWI3NDkwYmY2MTI3YzdmZWY2ZSIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM1MzkxMzUsImV4cCI6MTczMzU0MjczNX0.8g62ioS9D7Jjow-p52DwA2r0zOyE3KTSOcCjsHkIxBA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/username/Martin?username=pedrocito",
+							"raw": "localhost:3001/api/users/username/username?username=tincho",
 							"host": [
 								"localhost"
 							],
@@ -140,20 +153,9 @@
 								"api",
 								"users",
 								"username",
-								"Martin"
+								"username"
 							],
 							"query": [
-								{
-									"key": "username",
-									"value": "pedrocito",
-									"description": "true"
-								},
-								{
-									"key": "username",
-									"value": null,
-									"description": "undefined",
-									"disabled": true
-								},
 								{
 									"key": "username",
 									"value": "\"      \"  ",
@@ -168,6 +170,15 @@
 									"key": "username",
 									"value": "12345678",
 									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "pedrocito",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "tincho"
 								}
 							]
 						}
@@ -255,6 +266,14 @@
 								"1"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

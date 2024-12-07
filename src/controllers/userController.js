@@ -2,6 +2,7 @@
 // tomo decisiones y envio al modelo logico db para que se conecte con la bdd fisica
 // le devuelvo el proceso al handler para que responda la solicitud http
 const users = require("../models/usersModel");
+const bcrypt = require("bcryptjs");
 /*
 esto es diseñado para reducir repeticion de codigo ya que cada funcion puede encontrarse con la bdd no activa
 */
@@ -82,8 +83,11 @@ const createUserController = async (oneUser) => {
       statusCode: 400, //bad request
     };
   }
-  const newUser = new users(oneUser);
   try {
+    const { password } = oneUser;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    oneUser.password = hashedPassword;
+    const newUser = new users(oneUser);
     const savedUser = await newUser.save(); // Intentar guardar el nuevo usuario
     return savedUser;
   } catch (error) {
@@ -190,7 +194,7 @@ throwError500(error);
 };
 };
 
-const deleteUserController = (id) => {
+const deleteUserController = async (id) => {
   try { 
     const updatedUser  = await userController.updateUserController(id, { eliminado: "SI" });
     if (!updatedUser ) {
