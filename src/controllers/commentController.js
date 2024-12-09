@@ -1,4 +1,3 @@
-
 const comments = require("../models/commentsModel");
 /*
 esto es diseñado para reducir repeticion de codigo ya que cada funcion puede encontrarse con la bdd no activa
@@ -15,7 +14,7 @@ const throwError500 = (error) => {
 const getAllCommentsController = async () => {
   try {
     const allComments = await comments.find({ leido: "NO" });
-    if (allUsers.length === 0) {
+    if (allComments.length === 0) {
       throw {
         message: "No se encontró ningún comentario",
         statusCode: 404, // not found
@@ -27,18 +26,18 @@ const getAllCommentsController = async () => {
   }
 };
 
-const getDeletedCommentsController = async () => {
+const getReadCommentsController = async () => {
   try {
     // Buscar solo comentarios que estén eliminados
-    const deletedComments = await comments.find({ leido: "SI" });
+    const readComments = await comments.find({ leido: "SI" });
 
-    if (deletedComments.length === 0) {
+    if (readComments.length === 0) {
       throw {
         message: "No se encontró comentarios leídos",
         statusCode: 404, // not found
       };
-    };
-    return deletedComments;
+    }
+    return readComments;
   } catch (error) {
     throwError500(error);
   }
@@ -63,8 +62,8 @@ const getOneCommentController = async (id) => {
   }
 };
 
-
-const createCommentController = async (oneComment) => { //// aca quede
+const createCommentController = async (oneComment) => {
+  //// aca quede
   if (!oneComment) {
     throw {
       message: "Hubo un error con los datos enviados, intente otra vez",
@@ -86,7 +85,6 @@ const createCommentController = async (oneComment) => { //// aca quede
     throwError500(error);
   }
 };
-
 
 const physicalDeleteCommentController = async (id) => {
   try {
@@ -118,7 +116,7 @@ const setCommentAsReadController = async (id) => {
         message: "No se pudo realizar la operación, el comentario no existe",
         statusCode: 400,
       };
-    };    
+    }
     return updatedComment;
   } catch (error) {
     throwError500(error);
@@ -138,17 +136,16 @@ const setCommentAsUnreadController = async (id) => {
         message: "No se pudo realizar la operación, el comentario no existe",
         statusCode: 400,
       };
-    };    
+    }
     return updatedComment;
   } catch (error) {
     throwError500(error);
   }
 };
 
-
 const commentController = {
   getAllCommentsController,
-  getDeletedCommentsController,
+  getReadCommentsController,
   getOneCommentController,
   createCommentController,
   physicalDeleteCommentController,

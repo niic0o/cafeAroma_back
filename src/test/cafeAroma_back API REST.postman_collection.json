@@ -230,10 +230,20 @@
 				{
 					"name": "SetLikeAdmin",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzNzgzOTY0LCJleHAiOjE3MzM3ODc1NjR9.A8s398If1DUjigDFuolPr4hxC18L-iUJ2jLAFW1Bs9o",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/changeClient/1",
+							"raw": "localhost:3001/api/users/admin/changeClient/675744cb3a4b57f985a88b64",
 							"host": [
 								"localhost"
 							],
@@ -241,8 +251,9 @@
 							"path": [
 								"api",
 								"users",
+								"admin",
 								"changeClient",
-								"1"
+								"675744cb3a4b57f985a88b64"
 							]
 						}
 					},
@@ -319,7 +330,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTI5MjgsImV4cCI6MTczMzcxNjUyOH0.s0QmgBWRcldKydOxg55LaUr0XcRQ5TkYy_qUQXABCHQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzNzgzNzQzLCJleHAiOjE3MzM3ODczNDN9.KZCJX6zp3AME1O9sJCAFFwUCUo6uoIrqvvWsf7suSlM",
 									"type": "string"
 								}
 							]
@@ -328,7 +339,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"jorge@gmail.com\"\r\n}",
+							"raw": "{\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"adminmongo@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -478,6 +489,71 @@
 								"api",
 								"post",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "CreateComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"soyyo@gmail.com\",\r\n    \"asunto\": \"Me queme la jeta!!\",\r\n    \"descripcion\": \"estaba tan rico que me queme la jeta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/api/comments/crearComentario",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"comments",
+								"crearComentario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verComentarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzNzgzNDEyLCJleHAiOjE3MzM3ODcwMTJ9.Ub2KoToQlz0fWNu_1BNGNHaAkfWcNl89_bu-wI2Q-6k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/comments/admin/comentarios",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"comments",
+								"admin",
+								"comentarios"
 							]
 						}
 					},

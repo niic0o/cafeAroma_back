@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       required: true, // El correo electrónico es obligatorio
       //unique: true, un mismo usuario puede comentar muchas veces
       trim: true,
-      minlength: 4,
+      minlength: 10,
       maxlength: 100,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Validación básica de correo electrónico
     },
@@ -18,16 +18,16 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 4,
       maxlength: 100,
-      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
+      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/,
     },
     descripcion: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 30,
-        maxlength: 2000,
-        match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
-      },
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 15,
+      maxlength: 2000,
+      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/,
+    },
     leido: {
       type: String,
       default: "NO", // Valor por defecto
