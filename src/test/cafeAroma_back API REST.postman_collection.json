@@ -32,10 +32,20 @@
 				{
 					"name": "GetOneUser",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTMyNzEsImV4cCI6MTczMzcxNjg3MX0.wDfrjvcdNSlKnH1N-UcHtCbE1V-zJsH5d8mU1yfzp4c",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/2",
+							"raw": "localhost:3001/api/users/675659ec9247bd1a5c6a8fe2",
 							"host": [
 								"localhost"
 							],
@@ -43,7 +53,28 @@
 							"path": [
 								"api",
 								"users",
-								"2"
+								"675659ec9247bd1a5c6a8fe2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDeletedUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/users/admin/usuariosEliminados",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"admin",
+								"usuariosEliminados"
 							]
 						}
 					},
@@ -56,7 +87,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Juan Martín\",\r\n  \"apellido\": \"Peralta\",\r\n  \"username\": \"tincho\",\r\n  \"password\": \"1234*abcd\",\r\n  \"email\": \"juan.perez@example.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Calle Falsa 123\"\r\n}",
+							"raw": "{\r\n  \"dni\": 1495865,\r\n  \"nombre\": \"Jose Joaquin\",\r\n  \"apellido\": \"Gonzales\",\r\n  \"username\": \"gonzalit0\",\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"jorge@gmail.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"Chaco\",\r\n  \"domicilio\": \"San Martin 123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -81,11 +112,21 @@
 				{
 					"name": "UpdateUser",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTMyNzEsImV4cCI6MTczMzcxNjg3MX0.wDfrjvcdNSlKnH1N-UcHtCbE1V-zJsH5d8mU1yfzp4c",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dni\": 23568974,\r\n  \"nombre\": \"Pedro Martin\",\r\n  \"apellido\": \" \",\r\n  \"username\": \"per4lt1t4\",\r\n  \"password\": \"1234/#abcd\",\r\n  \"email\": \"juan.perez@example\",\r\n  \"provincia\": \"Buenos Aires\",\r\n  \"ciudad\": \"La Plata\",\r\n  \"domicilio\": \"Juan jose paso 1010\"\r\n}",
+							"raw": "{\r\n  \"dni\": 1496865,\r\n  \"nombre\": \"Jose Joaquin\",\r\n  \"apellido\": \"Gonzales\",\r\n  \"username\": \"gonzalit0\",\r\n  \"email\": \"jorge@gmail.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"El Sombrero\",\r\n  \"domicilio\": \"San Martin 123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,7 +134,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/users/2",
+							"raw": "localhost:3001/api/users/editarUsuario/675659ec9247bd1a5c6a8fe2",
 							"host": [
 								"localhost"
 							],
@@ -101,7 +142,8 @@
 							"path": [
 								"api",
 								"users",
-								"2"
+								"editarUsuario",
+								"675659ec9247bd1a5c6a8fe2"
 							]
 						}
 					},
@@ -272,8 +314,51 @@
 				{
 					"name": "login",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTI5MjgsImV4cCI6MTczMzcxNjUyOH0.s0QmgBWRcldKydOxg55LaUr0XcRQ5TkYy_qUQXABCHQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"jorge@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/api/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "tincho@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "12345\"·abcde",
+									"disabled": true
+								}
+							]
+						}
 					},
 					"response": []
 				}

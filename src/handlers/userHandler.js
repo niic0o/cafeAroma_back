@@ -25,6 +25,15 @@ const getAllUsersHandler = async (req, res) => {
   }
 };
 
+const getDeletedUsersHandler = async (req, res) => {
+  try {
+    const response = await userController.getDeletedUsersController();
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, error.statusCode);
+  }
+};
+
 const getOneUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,7 +100,6 @@ const updateUserHandler = async (req, res) => {
     nombre,
     apellido,
     username,
-    password,
     email,
     provincia,
     ciudad,
@@ -163,6 +171,7 @@ const resetUserHandler = async (req, res) => {
 
 const userHandler = {
   getAllUsersHandler,
+  getDeletedUsersHandler,
   getOneUserHandler,
   createUserHandler,
   updateUserHandler,

@@ -18,6 +18,12 @@ userRouter.get(
   userHandler.getAllUsersHandler
 );
 userRouter.get(
+  "/admin/usuariosEliminados",
+  authUser.authenticate,
+  authUser.authorize(["admin"]),
+  userHandler.getDeletedUsersHandler
+);
+userRouter.get(
   "/:id",
   authUser.authenticate,
   authUser.authorize(["admin", "cliente"]),
@@ -30,9 +36,9 @@ userRouter.get(
   userHandler.getUserByUsername
 );
 userRouter.put(
-  "editarUsuario/:id",
+  "/editarUsuario/:id",
   authUser.authenticate,
-  authUser.authorize(["cliente"]),
+  authUser.authorize(["admin", "cliente"]),
   userHandler.updateUserHandler
 );
 userRouter.delete(
@@ -68,5 +74,12 @@ userRouter.get(
   authUser.authorize(["admin"]),
   userHandler.resetUserHandler
 );
+
+userRouter.post(
+  "/cambiarContraseña",
+  authUser.authenticate,
+  authUser.authorize(["admin", "cliente"]),
+  loginHandler.changePasswordHandler
+)
 
 module.exports = userRouter;

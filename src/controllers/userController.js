@@ -17,7 +17,7 @@ const throwError500 = (error) => {
 
 const getAllUsersController = async () => {
   try {
-    const allUsers = await users.find();
+    const allUsers = await users.find({ eliminado: "NO" });
     if (allUsers.length === 0) {
       throw {
         message: "No se encontró usuarios registrados",
@@ -25,6 +25,23 @@ const getAllUsersController = async () => {
       };
     }
     return allUsers;
+  } catch (error) {
+    throwError500(error);
+  }
+};
+
+const getDeletedUsersController = async () => {
+  try {
+    // Buscar solo usuarios que estén eliminados
+    const deletedUsers = await users.find({ eliminado: "SI" });
+
+    if (deletedUsers.length === 0) {
+      throw {
+        message: "No se encontró usuarios eliminados",
+        statusCode: 404, // not found
+      };
+    };
+    return deletedUsers;
   } catch (error) {
     throwError500(error);
   }
@@ -157,76 +174,87 @@ const physicalDeleteUserController = async (id) => {
 const setLikeAdminController = async (id) => {
   try {
     // Intenta actualizar la categoría del usuario a "admin"
-    const updatedUser  = await userController.updateUserController(id, { categoria: "admin" });
+    const updatedUser = await userController.updateUserController(id, {
+      categoria: "admin",
+    });
 
     // Verifica si se encontró y actualizó el usuario
-    if (!updatedUser ) {
+    if (!updatedUser) {
       throw {
-        message: "No se pudo realizar la operación, el usuario no existe o ya es admin",
+        message:
+          "No se pudo realizar la operación, el usuario no existe o ya es admin",
         statusCode: 400,
       };
     }
 
     // Devuelve el usuario actualizado
-    return updatedUser ;
+    return updatedUser;
   } catch (error) {
-throwError500(error);
+    throwError500(error);
+  }
 };
-}
 
 const setLikeClientController = async (id) => {
   try {
     // Intenta actualizar la categoría del usuario a "cliente"
-    const updatedUser  = await userController.updateUserController(id, { categoria: "cliente" });
+    const updatedUser = await userController.updateUserController(id, {
+      categoria: "cliente",
+    });
 
     // Verifica si se encontró y actualizó el usuario
-    if (!updatedUser ) {
+    if (!updatedUser) {
       throw {
-        message: "No se pudo realizar la operación, el usuario no existe o ya es cliente",
+        message:
+          "No se pudo realizar la operación, el usuario no existe o ya es cliente",
         statusCode: 400,
       };
     }
 
     // Devuelve el usuario actualizado
-    return updatedUser ;
+    return updatedUser;
   } catch (error) {
-throwError500(error);
-};
+    throwError500(error);
+  }
 };
 
 const deleteUserController = async (id) => {
-  try { 
-    const updatedUser  = await userController.updateUserController(id, { eliminado: "SI" });
-    if (!updatedUser ) {
+  try {
+    const updatedUser = await userController.updateUserController(id, {
+      eliminado: "SI",
+    });
+    if (!updatedUser) {
       throw {
         message: "No se pudo realizar la operación, el usuario no existe",
         statusCode: 400,
       };
     }
-    return updatedUser ;
+    return updatedUser;
   } catch (error) {
-throwError500(error);
-};
+    throwError500(error);
+  }
 };
 
 const resetUserController = async (id) => {
-  try { 
-    const updatedUser  = await userController.updateUserController(id, { eliminado: "NO" });
-    if (!updatedUser ) {
+  try {
+    const updatedUser = await userController.updateUserController(id, {
+      eliminado: "NO",
+    });
+    if (!updatedUser) {
       throw {
         message: "No se pudo realizar la operación, el usuario no existe",
         statusCode: 400,
       };
     }
-    return updatedUser ;
+    return updatedUser;
   } catch (error) {
-throwError500(error);
-};
+    throwError500(error);
+  }
 };
 
 const userController = {
   createUserController,
   getAllUsersController,
+  getDeletedUsersController,
   getUserByUsernameController,
   getOneUserController,
   updateUserController,

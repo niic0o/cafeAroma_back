@@ -22,8 +22,25 @@ const login = async (req, res) => {
   }
 };
 
+const changePasswordHandler = async (req, res) => {
+  try {
+    const { id: userId, password: oldPassword, newPassword } = req.body;
+
+    const { error } = validateUser.changePasswordValidation.validate({ userId, oldPassword, newPassword });
+    if (error) {
+      return res.status(400).send({ error: error.details[0].message });
+    };
+
+    const response = await loginController.changePassword({ userId, oldPassword, newPassword });
+    res.status(200).send(response);  
+  } catch (error) {
+    sendErrorResponse(res, error, error.statusCode || 500);
+  }
+};
+
 const loginHandler = {
-    login
+    login,
+    changePasswordHandler,   
 };
 
 module.exports = loginHandler;

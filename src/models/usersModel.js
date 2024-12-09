@@ -65,23 +65,23 @@ const userSchema = new mongoose.Schema(
     },
     provincia: {
       type: String,
-      required: true, // La provincia es obligatoria
-      trim: true,
+     // required: true, La provincia es obligatoria
+     //trim: true,
       minlength: 4,
       maxlength: 50,
       match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
     },
     ciudad: {
       type: String,
-      required: true, // La ciudad es obligatoria
-      trim: true,
+      //required: true, La ciudad es obligatoria
+      //trim: true,
       minlength: 4,
       maxlength: 50,
       match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
     },
     domicilio: {
       type: String,
-      required: true, // El domicilio es obligatorio
+      //required: true, El domicilio es obligatorio
       minlength: 6,
       maxlength: 100,
     },
