@@ -1,15 +1,45 @@
 const { Router } = require("express");
+const productRouter = require("./productRoutes");
 const mainRouter = Router();
 const userRouter = require("./userRoutes");
+const orderRouter = require("./orderRoutes");
 const postRouter = require("./postRoutes");
 const commentRouter = require("./commentRoutes");
-const productRouter = require('./productRoutes');
 
-//el server me pide que responda, depende si la consulta es a usuario, producto o posteos
-//delego la tarea a (ej: userRouter) importando las funciones correspondientes.
-mainRouter.use("/users", userRouter);
-mainRouter.use("/post", postRouter);
-mainRouter.use('/productos',productRouter);
-mainRouter.use('/comments', commentRouter);
+//usuarios
+mainRouter.use(
+  "/api/users",
+  userRouter
+  /*
+  #swagger.tags = ['Usuarios']
+  #swagger.security = [{
+      "bearerAuth": []
+  }]
+  */
+);
+//productos
+mainRouter.use(
+  "/api/productos",
+  productRouter
+  // #swagger.tags = ['Productos']
+);
 
+mainRouter.use(
+  "/api/ordenes",
+  orderRouter
+  // #swagger.tags = ['Ordenes']
+);
+
+//posteos
+mainRouter.use(
+  "/api/post",
+  postRouter
+  // #swagger.tags = ['Posteos']
+);
+
+//comentarios
+mainRouter.use(
+  "/api/comentarios",
+  commentRouter
+);
 module.exports = mainRouter;

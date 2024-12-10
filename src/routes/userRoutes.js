@@ -7,9 +7,43 @@ const authUser = require("../middlewares/authUser");
 
 //rutas users (delego al manejador el request y response de la solicitud)
 
-userRouter.post("/registrarUsuario", userHandler.createUserHandler);
+userRouter.post(
+  "/registrarUsuario",
+  userHandler.createUserHandler
+  /*  
+  #swagger.security = null
+
+  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/registerSchema"
+                    }  
+                }
+            }
+        } 
+  */
+);
 //login
-userRouter.post("/login", loginHandler.login); //devuelve un token
+userRouter.post(
+  "/login",
+  loginHandler.login
+  /*  
+  #swagger.security = null
+
+  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/loginSchema"
+                    }  
+                }
+            }
+        } 
+  */
+); //devuelve un token
 
 userRouter.get(
   "/admin/usuarios",
