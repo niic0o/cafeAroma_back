@@ -135,7 +135,7 @@ const createUserValidation = joi.object({
     .string()
     .min(4)
     .max(50)
-    .trim()
+    //.trim()
     //.required()
     .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/) // Permitir letras con tildes y espacios
     .messages({
@@ -154,7 +154,7 @@ const createUserValidation = joi.object({
     .string()
     .min(4)
     .max(50)
-    .trim()
+    //.trim()
     //.required()
     .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/) // Permitir letras con tildes y espacios
     .messages({

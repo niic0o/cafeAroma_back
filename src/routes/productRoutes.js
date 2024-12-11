@@ -1,17 +1,31 @@
 const {Router} = require('express');
-const {getAllProductsHandler, getOneproductHandler , createProductHandler,updateProductHandler,deleteProductHandler,} = require('../handlers/productHandler');
 const productRouter = Router();
+const {getAllProductsHandler, getOneproductHandler , createProductHandler,updateProductHandler,deleteProductHandler,} = require('../handlers/productHandler');
+const authUser = require("../middlewares/authUser");
 
 
 //productos
 productRouter.get("/", getAllProductsHandler);
 
-productRouter.get("/:id",getOneproductHandler );
+productRouter.get("/:id",
+    authUser.authenticate,
+    authUser.authorize(["admin"]),
+    
+    getOneproductHandler );
 
-productRouter.post("/", createProductHandler);
+productRouter.post("/", 
+    authUser.authenticate,
+    authUser.authorize(["admin"]),
+    createProductHandler);
 
-productRouter.put("/:id", updateProductHandler);
+productRouter.put("/:id", 
+    authUser.authenticate,
+    authUser.authorize(["admin"]),
+    updateProductHandler);
 
-productRouter.delete("/:id",deleteProductHandler);
+productRouter.delete("/:id",
+    authUser.authenticate,
+    authUser.authorize(["admin"]),
+    deleteProductHandler);
 
 module.exports = productRouter;

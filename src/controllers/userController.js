@@ -131,20 +131,23 @@ primero verifica que sea objeto y no nulo
 caso contrario devuelve un error 500
 */
 
-const updateUserController = async (id, newUser) => {
-  if (!newUser) {
+const updateUserController = async (id, newUser ) => {
+  if (!newUser ) {
     throw {
       message: "Hubo un error con los datos enviados, intente otra vez",
-      statusCode: 400, //bad request
+      statusCode: 400, // bad request
     };
   }
   try {
-    const updatedUser = await users.findByIdAndUpdate(
-      id,
-      newUser,
-      { new: true } // Retorna el producto actualizado
-    );
-    return updatedUser;
+    const updatedUser = await users.findByIdAndUpdate(id, newUser , { new: true });
+    // Verificar si el usuario fue encontrado y actualizado
+    if (!updatedUser ) {
+      throw {
+        message: "Usuario no encontrado",
+        statusCode: 404, // not found
+      };
+    }
+    return updatedUser ;
   } catch (error) {
     throwError500(error);
   }
@@ -225,7 +228,7 @@ const deleteUserController = async (id) => {
     if (!updatedUser) {
       throw {
         message: "No se pudo realizar la operación, el usuario no existe",
-        statusCode: 400,
+        statusCode: 404,
       };
     }
     return updatedUser;
@@ -242,7 +245,7 @@ const resetUserController = async (id) => {
     if (!updatedUser) {
       throw {
         message: "No se pudo realizar la operación, el usuario no existe",
-        statusCode: 400,
+        statusCode: 404,
       };
     }
     return updatedUser;

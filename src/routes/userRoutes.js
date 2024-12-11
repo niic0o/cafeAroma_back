@@ -83,37 +83,37 @@ userRouter.delete(
 );
 //enviar el id por get del usuario que se quiera pasar de cliente a admin
 //cuidado, si el sistema queda sin admin se tendra que pedir al administrador de base de datos ayuda
-userRouter.get(
+userRouter.patch(
   "/admin/changeClient/:id",
   authUser.authenticate,
   authUser.authorize(["admin"]),
   userHandler.setLikeAdminHandler
 );
-userRouter.get(
+userRouter.patch(
   "/admin/changeAdmin/:id",
   authUser.authenticate,
   authUser.authorize(["admin"]),
   userHandler.setLikeClientHandler
 );
 //borrado logico de usuario, un usuario se puede dar de baja
-userRouter.get(
+userRouter.patch(
   "/deleteUser/:id",
   authUser.authenticate,
   authUser.authorize(["admin", "cliente"]),
   userHandler.deleteUserHandler
 );
-userRouter.get(
+userRouter.patch(
   "admin/resetUser/:id",
   authUser.authenticate,
   authUser.authorize(["admin"]),
   userHandler.resetUserHandler
 );
 
-userRouter.post(
+userRouter.put(
   "/cambiarContraseña",
   authUser.authenticate,
   authUser.authorize(["admin", "cliente"]),
   loginHandler.changePasswordHandler
-)
+);
 
 module.exports = userRouter;
