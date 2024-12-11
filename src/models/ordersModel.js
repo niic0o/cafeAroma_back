@@ -44,26 +44,6 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-console.log("Registrando middleware pre(save)");
-orderSchema.pre("save", function (next) {
-  console.log("Antes de guardar la orden");
-  const self = this;
-  if (!self.nro_orden) {
-    Order.findOne({}, {}, { sort: { nro_orden: -1 } }, function (err, order) {
-      if (err) {
-        next(err);
-      } else if (!order) {
-        self.nro_orden = 1;
-      } else {
-        self.nro_orden = order.nro_orden + 1;
-      }
-      next(); // Llamar a next() dentro del callback
-    });
-  } else {
-    next(); // Llamar a next() si nro_orden ya está seteado
-  }
-});
-
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;
