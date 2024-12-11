@@ -6,7 +6,24 @@ const authUser = require("../middlewares/authUser");
 // Rutas para comentarios
 
 // Crear un nuevo comentario
-commentRouter.post("/crearComentario", commentHandler.createCommentHandler);
+commentRouter.post(
+  "/crearComentario",
+  commentHandler.createCommentHandler
+  /*  
+  #swagger.security = null
+
+  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/commentSchema"
+                    }  
+                }
+            }
+        } 
+  */
+);
 
 // Obtener todos los comentarios
 commentRouter.get(

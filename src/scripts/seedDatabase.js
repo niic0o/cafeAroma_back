@@ -76,7 +76,7 @@ async function seedProducts() {
       let precio = result.precio;
       let stock = result.stock;
       let [img] = unsplash
-        ? await getimgUnsplash(unsplash, result.name, 1)
+        ? await getimgUnsplash(unsplash, result.name + " cafe bar", 1)
         : result.img;
       let description = result.description;
       try {

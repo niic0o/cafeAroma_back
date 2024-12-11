@@ -18,12 +18,6 @@ const throwError500 = (error) => {
 const getAllUsersController = async () => {
   try {
     const allUsers = await users.find({ eliminado: "NO" });
-    if (allUsers.length === 0) {
-      throw {
-        message: "No se encontró usuarios registrados",
-        statusCode: 404, // not found
-      };
-    }
     return allUsers;
   } catch (error) {
     throwError500(error);
@@ -34,13 +28,6 @@ const getDeletedUsersController = async () => {
   try {
     // Buscar solo usuarios que estén eliminados
     const deletedUsers = await users.find({ eliminado: "SI" });
-
-    if (deletedUsers.length === 0) {
-      throw {
-        message: "No se encontró usuarios eliminados",
-        statusCode: 404, // not found
-      };
-    };
     return deletedUsers;
   } catch (error) {
     throwError500(error);
@@ -54,12 +41,6 @@ const getOneUserController = async (id) => {
   try {
     //recordar que params envia 'string' hay que parsear a Number
     const userById = await users.findById(id);
-    if (!userById) {
-      throw {
-        message: "No se encontró el usuario con el ID proporcionado",
-        statusCode: 404,
-      };
-    }
     return userById;
   } catch (error) {
     throwError500(error);
@@ -69,24 +50,9 @@ const getOneUserController = async (id) => {
 creo un arreglo filtrando los usurios de mismo username
 */
 const getUserByUsernameController = async (username) => {
-  // Verifica si el username es válido
-  if (typeof username !== "string" || username.trim() === "") {
-    //como tengo dos tipos de errores throw un objeto al catch con la propiedad que necesita.
-    throw {
-      message:
-        "El username debe contener carácteres y el campo no debe estar vacío.",
-      statusCode: 400, //bad request
-    };
-  }
   try {
     const usersByName = await users.find({ username });
     // Verifica si se encontró algún usuario
-    if (usersByName.length === 0) {
-      throw {
-        message: "No se encontró ningún usuario con ese username.",
-        statusCode: 404, //not found
-      };
-    }
     return usersByName;
   } catch (error) {
     throwError500(error);
@@ -140,13 +106,6 @@ const updateUserController = async (id, newUser ) => {
   }
   try {
     const updatedUser = await users.findByIdAndUpdate(id, newUser , { new: true });
-    // Verificar si el usuario fue encontrado y actualizado
-    if (!updatedUser ) {
-      throw {
-        message: "Usuario no encontrado",
-        statusCode: 404, // not found
-      };
-    }
     return updatedUser ;
   } catch (error) {
     throwError500(error);
@@ -160,14 +119,6 @@ habría que considerar una eliminacion logica
 const physicalDeleteUserController = async (id) => {
   try {
     const deletedUser = await users.findByIdAndDelete(id); // Elimina por ID
-
-    if (!deletedUser) {
-      throw {
-        message: "Usuario no encontrado",
-        statusCode: 404, // Not Found
-      };
-    }
-
     return deletedUser;
   } catch (error) {
     throwError500(error);

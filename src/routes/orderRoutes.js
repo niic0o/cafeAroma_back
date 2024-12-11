@@ -33,7 +33,7 @@ orderRouter.post(
             content: {
                 "application/json": {
                     schema: {
-                        $ref: "#/components/schemas/ordersSchema"
+                        $ref: "#/components/schemas/orderSchema"
                     }  
                 }
             }
@@ -79,6 +79,18 @@ orderRouter.put(
   authUser.authenticate,
   authUser.authorize(["admin", "cliente"]),
   orderHandler.updateOrderHandler
+  /*  
+  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/orderSchema"
+                    }  
+                }
+            }
+        } 
+  */
 );
 
 module.exports = orderRouter;

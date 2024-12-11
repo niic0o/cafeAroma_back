@@ -42,15 +42,36 @@ const doc = {
         ciudad: "tu_ciudad",
         domicilio: "tu_domicilio",
       },
-      ordersSchema: {
+      productSchema: {
+        $name: "cappuccino",
+        $precio: 1024.56,
+        $stock: 10,
+        $img: "http://dummyimage.com/300x300.png/ff4444/ffffff",
+        $description: "Lorem Ipsum",
+      },
+      orderSchema: {
         $user_id: "675659ec9247bd1a5c6a8fe2",
         $items: [
           {
             $product_id: "675659ec9247bd1a5c6a8fe2",
-            $cantidad: 1,
-            $precio: 100,
+            $cantidad: 2,
+            $precio: 1255.65,
           },
         ],
+      },
+      mercadoPagoSchema: {
+        $items: [
+          {
+            $nombre: "Cappuccino",
+            $cantidad: 3,
+            $precio: 1024.56,
+          },
+        ],
+      },
+      commentSchema: {
+        $email: "tu@email.com",
+        $asunto: "Lorem Ipsum",
+        $description: "Lorem Ipsum",
       },
     },
   },

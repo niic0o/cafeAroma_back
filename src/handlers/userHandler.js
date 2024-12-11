@@ -19,6 +19,12 @@ const sendErrorResponse = (res, error, statusCode) => {
 const getAllUsersHandler = async (req, res) => {
   try {
     const response = await userController.getAllUsersController();
+    if (response.length === 0) {
+      return {
+        message: "No se encontró usuarios registrados",
+        statusCode: 200,
+      };
+    }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -28,6 +34,12 @@ const getAllUsersHandler = async (req, res) => {
 const getDeletedUsersHandler = async (req, res) => {
   try {
     const response = await userController.getDeletedUsersController();
+    if (response.length === 0) {
+      return {
+        message: "No se encontró usuarios eliminados",
+        statusCode: 200,
+      };
+    };
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -38,6 +50,12 @@ const getOneUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await userController.getOneUserController(id);
+    if (!response) {
+      throw {
+        message: "No se encontró el usuario con el ID proporcionado",
+        statusCode: 404,
+      };
+    }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -53,6 +71,12 @@ const getUserByUsername = async (req, res) => {
   try {
     const { username } = req.query; // para la linea siguiente necesito enviar 'string' no 'object'
     const response = await userController.getUserByUsernameController(username);
+    if (response.length === 0) {
+      throw {
+        message: "No se encontró ningún usuario con ese username.",
+        statusCode: 404, //not found
+      };
+    }  
     res.status(200);
     res.send(response);
   } catch (error) {
@@ -113,6 +137,13 @@ const updateUserHandler = async (req, res) => {
   //doble verificacion y control de otros errores.
   try {
     const response = await userController.updateUserController(id, oneUser);
+        // Verificar si el usuario fue encontrado y actualizado
+        if (!response ) {
+          throw {
+            message: "Usuario no encontrado",
+            statusCode: 404, // not found
+          };
+        }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -123,6 +154,13 @@ const physicalDeleteUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await userController.physicalDeleteUserController(id);
+    if (!response) {
+      throw {
+        message: "Usuario no encontrado",
+        statusCode: 404, // Not Found
+      };
+    }
+ 
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
