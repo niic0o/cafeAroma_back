@@ -11,6 +11,7 @@ esta autorizado a acceder a una ruta especifica.
 */
 
 const jwt = require("jsonwebtoken");
+const userController = require("../controllers/userController");
 require("dotenv").config();
 
 const authenticate = (req, res, next) => {
@@ -27,7 +28,7 @@ const authenticate = (req, res, next) => {
         .status(401)
         .send({ error: "Invalid token: Inicie sesión nuevamente" });
     }
-    req.user = decoded; // Guardar la información del usuario en la solicitud
+    req.user = decoded; //guardar datos del usuario
     next(); // Continuar al siguiente middleware o ruta
   });
 };
@@ -41,9 +42,39 @@ const authorize = (roles) => {
   };
 };
 
+const get = async (req, res) => {
+    const token = req.body.token;
+    const userData = jwt.decode(token, process.env.SECRETKEY, (err, decoded) => {
+      if (err) {
+        return res
+          .status(401)
+          .send({ error: "Invalid token: Inicie sesión nuevamente" });
+      }
+    });
+    try{
+    const response = await userController.getOneUserController(userData.id);
+    res.status(200).send(response);
+    }catch(error){
+      res.status(500).send(error);
+    }
+}
+
+/*
+const getPayload = async (req, res) => {
+  const token = "12";
+console.log(token);
+  if (!token) {
+    return res.status(401).send({ error: "No ha iniciado sesión" });
+  }
+ 
+  res.status(200).send(token);
+};
+*/
 const authUser = {
   authenticate,
   authorize,
+  //getPayload,
+  get,
 };
 
 module.exports = authUser;

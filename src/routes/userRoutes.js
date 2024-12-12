@@ -103,7 +103,7 @@ userRouter.patch(
   userHandler.deleteUserHandler
 );
 userRouter.patch(
-  "admin/resetUser/:id",
+  "/admin/resetUser/:id",
   authUser.authenticate,
   authUser.authorize(["admin"]),
   userHandler.resetUserHandler
@@ -115,5 +115,13 @@ userRouter.put(
   authUser.authorize(["admin", "cliente"]),
   loginHandler.changePasswordHandler
 );
+
+userRouter.post(
+  "/misDatos",
+  authUser.authenticate,
+  authUser.authorize(["admin", "cliente"]),
+  authUser.get,
+);
+
 
 module.exports = userRouter;

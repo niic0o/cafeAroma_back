@@ -1,5 +1,6 @@
 const loginController = require("../controllers/loginController");
 const validateUser = require("../middlewares/validateUser");
+const jwt = require("jsonwebtoken");
 
 const sendErrorResponse = (res, error, statusCode) => {
   res.status(statusCode).send({ Error: error.message });
