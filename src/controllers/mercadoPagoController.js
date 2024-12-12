@@ -1,4 +1,4 @@
-const { MP_ACCESS_TOKEN } = require("../config/mp");
+const MP_ACCESS_TOKEN = require("../config/mp");
 
 // SDK de Mercado Pago
 const { MercadoPagoConfig, Preference } = require("mercadopago");
@@ -6,7 +6,6 @@ const { MercadoPagoConfig, Preference } = require("mercadopago");
 const mercadoPagoClient = new MercadoPagoConfig({
   accessToken: MP_ACCESS_TOKEN,
 });
-
 
 const createPrefenceController = async (body) => {
     if (!body) {
@@ -18,7 +17,7 @@ const createPrefenceController = async (body) => {
     try {
         const preference = new Preference(mercadoPagoClient);
         const result = await preference.create({ body });
-      return result;
+        return result;
     } catch (error) {
       throwError500(error);
     }

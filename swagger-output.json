@@ -435,7 +435,7 @@
         ]
       }
     },
-    "/api/usersadmin/resetUser/{id}": {
+    "/api/users/admin/resetUser/{id}": {
       "patch": {
         "tags": [
           "Usuarios"
@@ -523,6 +523,56 @@
                     "example": "any"
                   },
                   "newPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/misDatos": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
                     "example": "any"
                   }
                 }
@@ -1067,95 +1117,6 @@
         }
       }
     },
-    "/api/post/": {
-      "get": {
-        "tags": [
-          "Posteos"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Posteos"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/post/{id}": {
-      "get": {
-        "tags": [
-          "Posteos"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Posteos"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Posteos"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/comentarios/crearComentario": {
       "post": {
         "tags": [
@@ -1584,37 +1545,29 @@
         ]
       },
       "mercadoPagoSchema": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "nombre": {
-                  "type": "string",
-                  "example": "Cappuccino"
-                },
-                "cantidad": {
-                  "type": "number",
-                  "example": 3
-                },
-                "precio": {
-                  "type": "number",
-                  "example": 1024.56
-                }
-              },
-              "required": [
-                "nombre",
-                "cantidad",
-                "precio"
-              ]
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Cappuccino"
+            },
+            "quantity": {
+              "type": "number",
+              "example": 3
+            },
+            "price": {
+              "type": "number",
+              "example": 1024.56
             }
-          }
-        },
-        "required": [
-          "items"
-        ]
+          },
+          "required": [
+            "title",
+            "quantity",
+            "price"
+          ]
+        }
       },
       "commentSchema": {
         "type": "object",

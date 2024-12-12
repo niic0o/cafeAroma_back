@@ -3,7 +3,6 @@ const productRouter = require("./productRoutes");
 const mainRouter = Router();
 const userRouter = require("./userRoutes");
 const orderRouter = require("./orderRoutes");
-const postRouter = require("./postRoutes");
 const commentRouter = require("./commentRoutes");
 const mercadoPagoRouter = require("./mercadoPagoRoutes");
 
@@ -39,13 +38,6 @@ mainRouter.use(
       "bearerAuth": []
   }]
   */
-);
-
-//posteos
-mainRouter.use(
-  "/api/post",
-  postRouter
-  // #swagger.tags = ['Posteos']
 );
 
 //comentarios
