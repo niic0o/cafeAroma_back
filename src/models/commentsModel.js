@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Definir el esquema del usuario. REF: Docs/scheme_users_DER.png
-const userSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 4,
       maxlength: 100,
-      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/,
+      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.¿?!¡/()\s]*$/,
     },
     descripcion: {
       type: String,
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 15,
       maxlength: 2000,
-      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/,
+      match: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.¿?!¡/()\s]*$/,
     },
     leido: {
       type: String,
@@ -41,6 +41,6 @@ const userSchema = new mongoose.Schema(
 );
 
 // Crear el modelo basado en el esquema
-const Comment = mongoose.model("Comment", userSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;

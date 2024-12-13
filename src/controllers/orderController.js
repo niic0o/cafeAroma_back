@@ -45,7 +45,7 @@ const Order = require("../models/ordersModel"); // Modelo de Mongoose
 const throwError500 = (error) => {
   throw {
     message:
-      "Ups, se desenchufó un cable o la base de datos no funciona " +
+    "Error al intentar obtener datos, ocurre que: " +
       error.message,
     statusCode: 500, // error del servidor
   };

@@ -5,7 +5,7 @@ esto es diseñado para reducir repeticion de codigo ya que cada funcion puede en
 const throwError500 = (error) => {
   throw {
     message:
-      "Ups, se desenchufó un cable o la base de datos no funciona " +
+      "Error al intentar obtener datos, ocurre que: " +
       error.message,
     statusCode: 500, //error del servidor
   };
@@ -14,12 +14,6 @@ const throwError500 = (error) => {
 const getAllCommentsController = async () => {
   try {
     const allComments = await comments.find({ leido: "NO" });
-    if (allComments.length === 0) {
-      throw {
-        message: "No se encontró ningún comentario",
-        statusCode: 404, // not found
-      };
-    }
     return allComments;
   } catch (error) {
     throwError500(error);
@@ -30,13 +24,6 @@ const getReadCommentsController = async () => {
   try {
     // Buscar solo comentarios que estén eliminados
     const readComments = await comments.find({ leido: "SI" });
-
-    if (readComments.length === 0) {
-      throw {
-        message: "No se encontró comentarios leídos",
-        statusCode: 404, // not found
-      };
-    }
     return readComments;
   } catch (error) {
     throwError500(error);
@@ -50,12 +37,6 @@ const getOneCommentController = async (id) => {
   try {
     //recordar que params envia 'string' hay que parsear a Number
     const commentById = await comments.findById(id);
-    if (!commentById) {
-      throw {
-        message: "No se encontró el usuario con el ID proporcionado",
-        statusCode: 404,
-      };
-    }
     return commentById;
   } catch (error) {
     throwError500(error);
@@ -63,13 +44,6 @@ const getOneCommentController = async (id) => {
 };
 
 const createCommentController = async (oneComment) => {
-  //// aca quede
-  if (!oneComment) {
-    throw {
-      message: "Hubo un error con los datos enviados, intente otra vez",
-      statusCode: 400, //bad request
-    };
-  }
   try {
     const newComment = new comments(oneComment);
     const savedComment = await newComment.save(); // Intentar guardar el nuevo usuario
@@ -89,14 +63,6 @@ const createCommentController = async (oneComment) => {
 const physicalDeleteCommentController = async (id) => {
   try {
     const deletedComment = await comments.findByIdAndDelete(id); // Elimina por ID
-
-    if (!deletedComment) {
-      throw {
-        message: "Comentario no encontrado",
-        statusCode: 404, // Not Found
-      };
-    }
-
     return deletedComment;
   } catch (error) {
     throwError500(error);
@@ -105,18 +71,12 @@ const physicalDeleteCommentController = async (id) => {
 
 const setCommentAsReadController = async (id) => {
   try {
-    const updatedComment = await Comment.findByIdAndUpdate(
+    const newComment = { leido: "SI" };
+    const updatedComment = await comments.findByIdAndUpdate(
       id,
-      { leido: "SI" },
-      { new: true, runValidators: true } // new: true devuelve el documento actualizado
+      newComment,
+      { new: true} // new: true devuelve el documento actualizado
     );
-
-    if (!updatedComment) {
-      throw {
-        message: "No se pudo realizar la operación, el comentario no existe",
-        statusCode: 400,
-      };
-    }
     return updatedComment;
   } catch (error) {
     throwError500(error);
@@ -125,18 +85,13 @@ const setCommentAsReadController = async (id) => {
 
 const setCommentAsUnreadController = async (id) => {
   try {
-    const updatedComment = await Comment.findByIdAndUpdate(
+    const newComment = { leido: "NO" };
+    console.log(id)
+    const updatedComment = await comments.findByIdAndUpdate(
       id,
-      { leido: "NO" },
-      { new: true, runValidators: true } // new: true devuelve el documento actualizado
+      newComment,
+      { new: true} // new: true devuelve el documento actualizado
     );
-
-    if (!updatedComment) {
-      throw {
-        message: "No se pudo realizar la operación, el comentario no existe",
-        statusCode: 400,
-      };
-    }
     return updatedComment;
   } catch (error) {
     throwError500(error);

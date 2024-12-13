@@ -8,6 +8,12 @@ const sendErrorResponse = (res, error, statusCode) => {
 const getAllCommentsHandler = async (req, res) => {
   try {
     const response = await commentController.getAllCommentsController();
+    if (response.length === 0) {
+      throw {
+        message: "No se encontró ningún comentario",
+        statusCode: 404, // not found
+      };
+    }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -16,7 +22,13 @@ const getAllCommentsHandler = async (req, res) => {
 
 const getReadCommentsHandler = async (req, res) => {
   try {
-    const response = await commentController.getReadCommentsController();
+    const response = await commentController.getReadCommentsController();   
+    if (response.length === 0) {
+      throw {
+        message: "No se encontró comentarios leídos",
+        statusCode: 404, // not found
+      };
+    }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -27,6 +39,12 @@ const getOneCommentHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await commentController.getOneCommentController(id);
+    if (!response) {
+      throw {
+        message: "No se encontró el usuario con el ID proporcionado",
+        statusCode: 404,
+      };
+    }    
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -38,9 +56,14 @@ const createCommentHandler = async (req, res) => {
   const { error } =
     validateComment.createCommentValidation.validate(oneComment);
   if (error) {
-    return res.status(400).send({ error: error.details[0].message });
+    return res.status(400).send({ error: error.details[0].message }); // datos mal enviados
   }
-
+  if (!oneComment) {
+    throw {
+      message: "Hubo un error con los datos enviados, intente otra vez", //si la validacion deja pasar null
+      statusCode: 400, //bad request
+    };
+  }
   try {
     const response = await commentController.createCommentController(
       oneComment
@@ -57,6 +80,12 @@ const physicalDeleteCommentHandler = async (req, res) => {
     const response = await commentController.physicalDeleteCommentController(
       id
     );
+    if (!response) {
+      throw {
+        message: "Comentario no encontrado",
+        statusCode: 404, // Not Found
+      };
+    }
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -67,6 +96,12 @@ const setCommentAsReadHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await commentController.setCommentAsReadController(id);
+    if (!response) {
+      throw {
+        message: "No se pudo realizar la operación, el comentario no existe",
+        statusCode: 400,
+      };
+    }   
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);
@@ -77,6 +112,12 @@ const setCommentAsUnreadHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await commentController.setCommentAsUnreadController(id);
+    if (!response) {
+      throw {
+        message: "No se pudo realizar la operación, el comentario no existe",
+        statusCode: 400,
+      };
+    }    
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, error.statusCode);

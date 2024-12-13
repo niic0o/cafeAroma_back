@@ -19,7 +19,7 @@ const createCommentValidation = joi.object({
     .max(200)
     .trim()
     .required()
-    .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/) // Permitir letras con tildes y espacios
+    .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.¿?!¡/()\s]*$/) // Permitir letras con tildes y espacios
     .messages({
       "string.base": "El campo asunto debe ser un texto.",
       "string.empty": "El campo asunto es requerido.",
@@ -32,11 +32,11 @@ const createCommentValidation = joi.object({
 
   descripcion: joi
     .string()
-    .min(10)
+    .min(15)
     .max(2000)
     .trim()
     .required()
-    .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.¿?!¡/()\s]*$/) // Permitir letras con tildes y espacios
+    .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.¿?!¡/()\s]*$/) // Permitir letras con tildes y espacios
     .messages({
       "string.base": "El campo descripcion debe ser un texto.",
       "string.empty": "El campo descripcion es requerido.",

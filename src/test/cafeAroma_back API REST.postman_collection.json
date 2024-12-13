@@ -11,6 +11,16 @@
 				{
 					"name": "GetAllUsers",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzOTg4MjA1LCJleHAiOjE3MzM5OTE4MDV9.Gz1S-hP2mWkMuw2_zSg9Ios14uUISbNDALUWlSeEPMw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -37,7 +47,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTMyNzEsImV4cCI6MTczMzcxNjg3MX0.wDfrjvcdNSlKnH1N-UcHtCbE1V-zJsH5d8mU1yfzp4c",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWEwNTcyMWM3MTViMWUyMDhmZTAwNCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzOTUzMDEzLCJleHAiOjE3MzM5NTY2MTN9.hZSJUc0w0c6pmfSkiTLTKCCOwlT9Yv9o5HRsCuCQ1aE",
 									"type": "string"
 								}
 							]
@@ -45,7 +55,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/users/675659ec9247bd1a5c6a8fe2",
+							"raw": "localhost:3001/api/users/dfgdfg",
 							"host": [
 								"localhost"
 							],
@@ -53,7 +63,7 @@
 							"path": [
 								"api",
 								"users",
-								"675659ec9247bd1a5c6a8fe2"
+								"dfgdfg"
 							]
 						}
 					},
@@ -62,6 +72,16 @@
 				{
 					"name": "GetDeletedUsers",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWEwNTcyMWM3MTViMWUyMDhmZTAwNCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzOTU0NDA5LCJleHAiOjE3MzM5NTgwMDl9.FZ35RfyCA1hOtjizXdB33GjLYN8grU2gkvdbYQWJEoY",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -87,7 +107,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dni\": 1495865,\r\n  \"nombre\": \"Jose Joaquin\",\r\n  \"apellido\": \"Gonzales\",\r\n  \"username\": \"gonzalit0\",\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"jorge@gmail.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"Chaco\",\r\n  \"domicilio\": \"San Martin 123\"\r\n}",
+							"raw": "{\r\n  \"dni\": 123456,\r\n  \"nombre\": \"Soy Eladmin\",\r\n  \"apellido\": \"Sanchez\",\r\n  \"username\": \"myadmin\",\r\n  \"password\": \"121@€12abcde\",\r\n  \"email\": \"myadmin@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -117,7 +137,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTY1OWVjOTI0N2JkMWE1YzZhOGZlMiIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM3MTMyNzEsImV4cCI6MTczMzcxNjg3MX0.wDfrjvcdNSlKnH1N-UcHtCbE1V-zJsH5d8mU1yfzp4c",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzODgyMDE4LCJleHAiOjE3MzM4ODU2MTh9.ZW5JGcR1_7ChEOB5ivTZemu2HKHCjT4HNXp_Zk7-BjE",
 									"type": "string"
 								}
 							]
@@ -126,7 +146,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dni\": 1496865,\r\n  \"nombre\": \"Jose Joaquin\",\r\n  \"apellido\": \"Gonzales\",\r\n  \"username\": \"gonzalit0\",\r\n  \"email\": \"jorge@gmail.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"El Sombrero\",\r\n  \"domicilio\": \"San Martin 123\"\r\n}",
+							"raw": "{\r\n  \"dni\": 1496865,\r\n  \"nombre\": \"Josecito Joaquin\",\r\n  \"apellido\": \"Gonzales\",\r\n  \"username\": \"gonzalit0\",\r\n  \"email\": \"jorge@gmail.com\",\r\n  \"provincia\": \"Corrientes \",\r\n  \"ciudad\": \"El Sombrero\",\r\n  \"domicilio\": \"San Martin 123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -178,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTNiMWI3NDkwYmY2MTI3YzdmZWY2ZSIsImNhdGVnb3JpYSI6ImNsaWVudGUiLCJpYXQiOjE3MzM1MzkxMzUsImV4cCI6MTczMzU0MjczNX0.8g62ioS9D7Jjow-p52DwA2r0zOyE3KTSOcCjsHkIxBA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWEwNTcyMWM3MTViMWUyMDhmZTAwNCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzOTU0OTYwLCJleHAiOjE3MzM5NTg1NjB9.T4AA1-L8EvwsNLehzqKwNGIv5B7BuL7TWlVaxvhQtb8",
 									"type": "string"
 								}
 							]
@@ -330,7 +350,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzNzgzNzQzLCJleHAiOjE3MzM3ODczNDN9.KZCJX6zp3AME1O9sJCAFFwUCUo6uoIrqvvWsf7suSlM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzOTg3NjAyLCJleHAiOjE3MzM5OTEyMDJ9.FmtMayuFopX5DOmi5bi8bgTx5ok6qhZndpleuXkZmi4",
 									"type": "string"
 								}
 							]
@@ -339,7 +359,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"password\": \"12@€12abcde\",\r\n  \"email\": \"adminmongo@gmail.com\"\r\n}",
+							"raw": "{\r\n  \"password\": \"121@€12abcde\",\r\n  \"email\": \"myadmin@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -347,11 +367,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/users/login",
+							"raw": "localhost:3009/api/users/login",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "3009",
 							"path": [
 								"api",
 								"users",
@@ -372,12 +392,73 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getMyData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzM0MDM4NjYxLCJleHAiOjE3MzQwNDIyNjF9.46BNuJL2RDfLIIMEkbvC4H4Ombg5LeuyESV-r6RnlNQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzM0MDM4NjYxLCJleHAiOjE3MzQwNDIyNjF9.46BNuJL2RDfLIIMEkbvC4H4Ombg5LeuyESV-r6RnlNQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/api/users/misDatos",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"users",
+								"misDatos"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Post",
 			"item": [
+				{
+					"name": "getProductsApiFake",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.escuelajs.co/api/v1/products",
+							"protocol": "https",
+							"host": [
+								"api",
+								"escuelajs",
+								"co"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "GetAllPost",
 					"request": {
@@ -506,7 +587,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"soyyo@gmail.com\",\r\n    \"asunto\": \"Me queme la jeta!!\",\r\n    \"descripcion\": \"estaba tan rico que me queme la jeta\"\r\n}",
+							"raw": "{\r\n    \"email\": \"hooooola@gmail.com\",\r\n    \"asunto\": \"esto es un comentario\",\r\n    \"descripcion\": \"1223324dsfsdf2 uh!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,14 +595,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/comments/crearComentario",
+							"raw": "localhost:3009/api/comentarios/crearComentario",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "3009",
 							"path": [
 								"api",
-								"comments",
+								"comentarios",
 								"crearComentario"
 							]
 						}
@@ -536,7 +617,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTc2ZjRkZWMwMTdiMTQ4YzQyYWRmMiIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzMzNzgzNDEyLCJleHAiOjE3MzM3ODcwMTJ9.Ub2KoToQlz0fWNu_1BNGNHaAkfWcNl89_bu-wI2Q-6k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzM0MDM4NjYxLCJleHAiOjE3MzQwNDIyNjF9.46BNuJL2RDfLIIMEkbvC4H4Ombg5LeuyESV-r6RnlNQ",
 									"type": "string"
 								}
 							]
@@ -544,20 +625,248 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/api/comments/admin/comentarios",
+							"raw": "localhost:3009/api/comentarios/admin/comentarios",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "3009",
 							"path": [
 								"api",
-								"comments",
+								"comentarios",
 								"admin",
 								"comentarios"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "marcarComoLeido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzM0MDM4NjYxLCJleHAiOjE3MzQwNDIyNjF9.46BNuJL2RDfLIIMEkbvC4H4Ombg5LeuyESV-r6RnlNQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/api/comentarios/marcarComoLeido/675a04fcd44ebf0af81972ca",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"comentarios",
+								"marcarComoLeido",
+								"675a04fcd44ebf0af81972ca"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "getAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/api/productos/",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3009/api/productos/6759c8c78af708f723cae45b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"productos",
+								"6759c8c78af708f723cae45b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crearProducto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWE1YWJiYzE4M2FkMWNjNDIwNzM1ZCIsImNhdGVnb3JpYSI6ImFkbWluIiwiaWF0IjoxNzM0MDQ1NzcxLCJleHAiOjE3MzQwNDkzNzF9.Sy1vHDAje36mSd_CFHoaW2yMFiiyYHL9pz_LUBQmkhY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Café Helado\",\r\n    \"precio\": \"12784.55\",\r\n    \"stock\": 9,\r\n    \"img\": \"https://images.unsplash.com/photo-1514189347135-3e90a3b561f7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\r\n    \"description\": \"100% Café Negro, colocado en un vaso de vidrio de espectacular resistencia al frio con 6 cubos de hielo reforzados que le dan una máxima sensación de frescura a tu paladar. Viene incluido con dispositivo succionador de café. Podes pedirlo para tomar acá o para llevar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/api/productos/",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ordenes",
+			"item": [
+				{
+					"name": "ObtenerOrdenes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/api/ordenes/admin/verOrdenes",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"ordenes",
+								"admin",
+								"verOrdenes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObtenerOrdenPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/api/ordenes/admin/6759c9a18af708f723cb06f5sdfsdf",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"ordenes",
+								"admin",
+								"6759c9a18af708f723cb06f5sdfsdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crearPedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\": \"6759c8b58af708f723cae3c7\",\r\n        \"items\": [\r\n            {\r\n                \"product_id\": \"675a5abbc183ad1cc420735d\",\r\n                \"cantidad\": 7,\r\n                \"precio\": 9865.72\r\n            },\r\n            {\r\n                \"product_id\": \"6759c8c48af708f723cae453\",\r\n                \"cantidad\": 4,\r\n                \"precio\": 1281.78\r\n            },\r\n            {\r\n                \"product_id\": \"6759c8c68af708f723cae459\",\r\n                \"cantidad\": 2,\r\n                \"precio\": 1128.99\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/api/ordenes/crearPedido",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"api",
+								"ordenes",
+								"crearPedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},

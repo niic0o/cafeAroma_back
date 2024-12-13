@@ -8,7 +8,7 @@ const createPreferenceHandler = async (req, res) => {
       items: req.body.map((item) => ({
         title: item.title,
         quantity: Number(item.quantity),
-        unit_price: Number(item.price),
+        unit_price: Number(item.precio),
         currency_id: "ARS",
       })),
       back_urls: {

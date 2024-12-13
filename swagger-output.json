@@ -1557,7 +1557,7 @@
               "type": "number",
               "example": 3
             },
-            "price": {
+            "precio": {
               "type": "number",
               "example": 1024.56
             }
@@ -1565,7 +1565,7 @@
           "required": [
             "title",
             "quantity",
-            "price"
+            "precio"
           ]
         }
       },

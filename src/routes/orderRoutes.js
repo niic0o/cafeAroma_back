@@ -17,7 +17,7 @@ orderRouter.get(
 orderRouter.get(
   "/admin/:id",
   authUser.authenticate,
-  authUser.authorize(["admin"]),
+  authUser.authorize(["admin", "cliente"]),
   orderHandler.getOneOrderHandler
 );
 

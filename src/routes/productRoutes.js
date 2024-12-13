@@ -20,8 +20,8 @@ productRouter.get(
 
 productRouter.get(
   "/:id",
-  authUser.authenticate,
-  authUser.authorize(["admin"]),
+  //authUser.authenticate,
+  //authUser.authorize(["admin"]),
 
   getOneproductHandler
 );
