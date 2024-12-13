@@ -61,7 +61,10 @@ const doc = {
       },
       mercadoPagoSchema: [
         {
+          $_id: "675659ec9247bd1a5c6a8fe2",
           $title: "Cappuccino",
+          $img: "http://dummyimage.com/300x300.png/ff4444/ffffff",
+          $description: "Lorem Ipsum",
           $quantity: 3,
           $precio: 1024.56,
         },

@@ -19,4 +19,6 @@ mercadoPagoRouter.post(
   */
 );
 
+mercadoPagoRouter.get("/return", mercadoPagoHandler.returnHandler);
+
 module.exports = mercadoPagoRouter;
