@@ -41,10 +41,11 @@ const orderSchema = new mongoose.Schema(
     },
     payment_id: {
       type: String,
-      default: "pending", // Valor por defecto
+      required: false,
     },
     merchant_order_id: {
       type: String,
+      required: false,
     },
     eliminado: {
       type: String,

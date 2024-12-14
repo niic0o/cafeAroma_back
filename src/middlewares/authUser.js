@@ -43,21 +43,21 @@ const authorize = (roles) => {
 };
 
 const get = async (req, res) => {
-    const token = req.body.token;
-    const userData = jwt.decode(token, process.env.SECRETKEY, (err, decoded) => {
-      if (err) {
-        return res
-          .status(401)
-          .send({ error: "Invalid token: Inicie sesión nuevamente" });
-      }
-    });
-    try{
-    const response = await userController.getOneUserController(userData.id);
-    res.status(200).send(response);
-    }catch(error){
-      res.status(500).send(error);
+  const token = req.body.token;
+  const userData = jwt.decode(token, process.env.SECRETKEY, (err, decoded) => {
+    if (err) {
+      return res
+        .status(401)
+        .send({ error: "Invalid token: Inicie sesión nuevamente" });
     }
-}
+  });
+  try {
+    const response = await userController.getOneUserController(userData._id);
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 /*
 const getPayload = async (req, res) => {

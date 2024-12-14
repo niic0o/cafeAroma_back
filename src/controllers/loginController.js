@@ -33,7 +33,7 @@ const login = async (email, password) => {
     }
     // Generar el token
     const token = jwt.sign(
-      { id: userToLogin._id, categoria: userToLogin.categoria },
+      { _id: userToLogin._id, categoria: userToLogin.categoria },
       secretKey,
       { expiresIn: "1h" }
     );

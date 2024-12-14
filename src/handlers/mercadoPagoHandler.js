@@ -57,9 +57,7 @@ const returnHandler = async (req, res) => {
     // merchant_order_id	ID (identifier) of the payment order generated in Mercado Pago.
 
     // Responde al cliente o redirige a una página de éxito
-    res.redirect(
-      `${process.env.FRONTEND_URL}/MercadoPagoCallback?status=${status}`
-    ); // Redirige a una página de éxito en tu frontend
+    res.redirect(`${process.env.FRONTEND_URL}/MercadoPagoCallback/${status}`); // Redirige a una página de éxito en tu frontend
   } catch (error) {
     res.status(400).send({ Error: error.message });
   }
