@@ -16,9 +16,10 @@ const login = async (email, password) => {
       };
     }
     // si existe pero esta eliminado
-    if (userToLogin.eliminado === 'SI') {
+    if (userToLogin.eliminado === "SI") {
       throw {
-        message: "Usuario eliminado. Por favor, contacta a un administrador para ser reactivado.",
+        message:
+          "Usuario eliminado. Por favor, contacta a un administrador para ser reactivado.",
         statusCode: 403,
       };
     }
@@ -38,11 +39,15 @@ const login = async (email, password) => {
     );
     return { token };
   } catch (error) {
-    // si hubo un error de implementacion o conexion a mongodb
-    throw {
-      message: "No se pudo generar el token por un problema interno",
-      statusCode: 500,
-    };
+    if (error.statusCode) {
+      throw error;
+    } else {
+      // si hubo un error de implementacion o conexion a mongodb
+      throw {
+        message: "No se pudo generar el token por un problema interno",
+        statusCode: 500,
+      };
+    }
   }
 };
 
@@ -75,7 +80,7 @@ const changePassword = async (changing) => {
     await user.save();
 
     return {
-      message: "Contraseña cambiada exitosamente",    
+      message: "Contraseña cambiada exitosamente",
     };
   } catch (error) {
     throw {
@@ -87,7 +92,7 @@ const changePassword = async (changing) => {
 
 const loginController = {
   login,
-  changePassword
+  changePassword,
 };
 
 module.exports = loginController;
