@@ -60,6 +60,7 @@ const {
   getAllOrdersController,
   getDeletedOrdersController,
   getOrderByIdController,
+  getOrderByUserIdController,
   updateOrderController,
   hardDeleteOrderController,
   deleteOrderController,
@@ -88,6 +89,16 @@ const getOneOrderHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await getOrderByIdController(id);
+    res.send(response);
+  } catch (error) {
+    sendErrorResponse(res, error, 500);
+  }
+};
+
+const getOrderByUserIdHandler = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const response = await getOrderByUserIdController(userId);
     res.send(response);
   } catch (error) {
     sendErrorResponse(res, error, 500);
@@ -159,7 +170,8 @@ const updateOrderHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedOrder = req.body;
-    const { error } = validateOrder.createOrderValidation.validate(updatedOrder);
+    const { error } =
+      validateOrder.createOrderValidation.validate(updatedOrder);
     if (error) {
       // Si hay un error en la validación, responde con un código de estado 400 y el mensaje de error
       return res.status(400).send({ error: error.details[0].message });
@@ -175,6 +187,7 @@ const updateOrderHandler = async (req, res) => {
 module.exports = {
   getAllOrdersHandler,
   getOneOrderHandler,
+  getOrderByUserIdHandler,
   createOrderHandler,
   hardDeleteOrderHandler,
   deleteOrderHandler,

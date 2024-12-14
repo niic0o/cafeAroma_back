@@ -3,7 +3,7 @@ const mercadoPagoRouter = Router();
 const mercadoPagoHandler = require("../handlers/mercadoPagoHandler");
 
 mercadoPagoRouter.post(
-  "/createPreference",
+  "/createPreference/:orderId",
   mercadoPagoHandler.createPreferenceHandler
   /*  
   #swagger.requestBody = {

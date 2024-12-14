@@ -21,11 +21,19 @@ orderRouter.get(
   orderHandler.getOneOrderHandler
 );
 
+// Obtener una orden por User ID
+orderRouter.get(
+  "/admin/byUserId/:userId",
+  authUser.authenticate,
+  authUser.authorize(["admin", "cliente"]),
+  orderHandler.getOrderByUserIdHandler
+);
+
 // Crear una nueva orden
 orderRouter.post(
   "/crearPedido",
-  authUser.authenticate,
-  authUser.authorize(["cliente"]),
+  // authUser.authenticate,
+  // authUser.authorize(["cliente"]),
   orderHandler.createOrderHandler
   /*  
   #swagger.requestBody = {

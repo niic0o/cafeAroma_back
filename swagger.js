@@ -58,6 +58,9 @@ const doc = {
             $precio: 1255.65,
           },
         ],
+        status: "pending",
+        payment_id: "675659ec9247bd1a5c6a8fe2",
+        merchant_order_id: "26116982143",
       },
       mercadoPagoSchema: [
         {

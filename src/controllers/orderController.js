@@ -44,9 +44,7 @@ const Order = require("../models/ordersModel"); // Modelo de Mongoose
 // Manejo de errores
 const throwError500 = (error) => {
   throw {
-    message:
-    "Error al intentar obtener datos, ocurre que: " +
-      error.message,
+    message: "Error al intentar obtener datos, ocurre que: " + error.message,
     statusCode: 500, // error del servidor
   };
 };
@@ -94,6 +92,22 @@ const getOrderByIdController = async (id) => {
       };
     }
     return orderById;
+  } catch (error) {
+    throwError500(error);
+  }
+};
+
+// Obtener ordenespor usuario
+const getOrderByUserIdController = async (userId) => {
+  try {
+    const orderByUserId = await Order.find({ user_id: userId });
+    if (!orderByUserId) {
+      throw {
+        message: "No se encontró la orden con el user ID proporcionado",
+        statusCode: 404,
+      };
+    }
+    return orderByUserId;
   } catch (error) {
     throwError500(error);
   }
@@ -200,6 +214,7 @@ const orderController = {
   getAllOrdersController,
   getDeletedOrdersController,
   getOrderByIdController,
+  getOrderByUserIdController,
   updateOrderController,
   hardDeleteOrderController,
   deleteOrderController,

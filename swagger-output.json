@@ -889,13 +889,21 @@
         ]
       }
     },
-    "/api/ordenes/crearPedido": {
-      "post": {
+    "/api/ordenes/admin/byUserId/{userId}": {
+      "get": {
         "tags": [
           "Ordenes"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -905,17 +913,35 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
+          "200": {
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordenes/crearPedido": {
+      "post": {
+        "tags": [
+          "Ordenes"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -1360,12 +1386,22 @@
         ]
       }
     },
-    "/api/mercadoPago/createPreference": {
+    "/api/mercadoPago/createPreference/{orderId}": {
       "post": {
         "tags": [
           "Mercado Pago"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1408,14 +1444,14 @@
             }
           },
           {
-            "name": "external_reference",
+            "name": "merchant_order_id",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "merchant_order_id",
+            "name": "external_reference",
             "in": "query",
             "schema": {
               "type": "string"
@@ -1567,6 +1603,18 @@
                 "precio"
               ]
             }
+          },
+          "status": {
+            "type": "string",
+            "example": "pending"
+          },
+          "payment_id": {
+            "type": "string",
+            "example": "675659ec9247bd1a5c6a8fe2"
+          },
+          "merchant_order_id": {
+            "type": "string",
+            "example": "26116982143"
           }
         },
         "required": [
