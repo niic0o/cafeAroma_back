@@ -40,6 +40,7 @@ module.exports = {
 */
 
 const Order = require("../models/ordersModel"); // Modelo de Mongoose
+const mongoose = require("mongoose");
 
 // Manejo de errores
 const throwError500 = (error) => {
@@ -100,7 +101,12 @@ const getOrderByIdController = async (id) => {
 // Obtener ordenespor usuario
 const getOrderByUserIdController = async (userId) => {
   try {
-    const orderByUserId = await Order.find({ user_id: userId });
+    const orderByUserId = await Order.find({ user_id: userId })
+      .populate({
+        path: "items.product_id",
+        model: "Product",
+        select: "img name description",
+      });
     if (!orderByUserId) {
       throw {
         message: "No se encontró la orden con el user ID proporcionado",
@@ -108,6 +114,7 @@ const getOrderByUserIdController = async (userId) => {
       };
     }
     return orderByUserId;
+
   } catch (error) {
     throwError500(error);
   }
