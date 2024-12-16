@@ -936,12 +936,27 @@
           "Ordenes"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         },
         "security": [
@@ -1400,6 +1415,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1408,8 +1430,19 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1673,7 +1706,7 @@
             "type": "string",
             "example": "Lorem Ipsum"
           },
-          "description": {
+          "descripcion": {
             "type": "string",
             "example": "Lorem Ipsum"
           }
@@ -1681,7 +1714,7 @@
         "required": [
           "email",
           "asunto",
-          "description"
+          "descripcion"
         ]
       }
     }

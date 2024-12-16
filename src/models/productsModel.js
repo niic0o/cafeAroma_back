@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
+      minlength: 0,
       required: true, // El stock es obligatorio
     },
     img: {

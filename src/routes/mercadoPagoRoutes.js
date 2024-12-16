@@ -1,9 +1,12 @@
 const { Router } = require("express");
 const mercadoPagoRouter = Router();
 const mercadoPagoHandler = require("../handlers/mercadoPagoHandler");
+const authUser = require("../middlewares/authUser");
 
 mercadoPagoRouter.post(
   "/createPreference/:orderId",
+  authUser.authenticate,
+  authUser.authorize(["cliente"]),
   mercadoPagoHandler.createPreferenceHandler
   /*  
   #swagger.requestBody = {
@@ -19,6 +22,12 @@ mercadoPagoRouter.post(
   */
 );
 
-mercadoPagoRouter.get("/return", mercadoPagoHandler.returnHandler);
+mercadoPagoRouter.get(
+  "/return",
+  mercadoPagoHandler.returnHandler
+  /*  
+  #swagger.security = null
+  */
+);
 
 module.exports = mercadoPagoRouter;

@@ -76,7 +76,7 @@ async function seedProducts() {
       let precio = result.precio;
       let stock = result.stock;
       let [img] = unsplash
-        ? await getimgUnsplash(unsplash, result.name + " cafe bar", 1)
+        ? await getimgUnsplash(unsplash, result.name, 1)
         : result.img;
       let description = result.description;
       try {
@@ -104,17 +104,18 @@ async function seedOrders(userIds, productIds) {
   console.log(userIds);
   console.log(productIds);
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     const order = {
       user_id: userIds[Math.floor(Math.random() * userIds.length)],
       items: [],
+      status: "approved",
     };
 
     const numProducts = Math.floor(Math.random() * 5) + 1;
     for (let j = 0; j < numProducts; j++) {
       const productId =
         productIds[Math.floor(Math.random() * productIds.length)];
-      const price = Math.round(Math.random() * 10000 * 100) / 100;
+      const price = Math.round((Math.random() * 3000 + 1000) * 100) / 100;
       const quantity = Math.floor(Math.random() * 3) + 1;
       order.items.push({
         product_id: productId,

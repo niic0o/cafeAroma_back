@@ -56,7 +56,12 @@ mainRouter.use(
 mainRouter.use(
   "/api/mercadoPago",
   mercadoPagoRouter
-  // #swagger.tags = ['Mercado Pago']
+  /*
+  #swagger.tags = ['Mercado Pago']
+  #swagger.security = [{
+      "bearerAuth": []
+  }]
+  */
 );
 
 module.exports = mainRouter;

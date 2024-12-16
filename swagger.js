@@ -75,7 +75,7 @@ const doc = {
       commentSchema: {
         $email: "tu@email.com",
         $asunto: "Lorem Ipsum",
-        $description: "Lorem Ipsum",
+        $descripcion: "Lorem Ipsum",
       },
     },
   },
