@@ -40,7 +40,6 @@ module.exports = {
 */
 
 const Order = require("../models/ordersModel"); // Modelo de Mongoose
-const mongoose = require("mongoose");
 
 // Manejo de errores
 const throwError500 = (error) => {

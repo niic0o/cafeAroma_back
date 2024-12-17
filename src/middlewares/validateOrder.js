@@ -121,6 +121,10 @@ const createOrderValidation = joi.object({
           "number.min": "El campo precio debe ser un número positivo o cero.",
           "any.required": "El campo precio es requerido.",
         }),
+        iva: joi.number().min(0).messages({
+          "number.base": "El campo iva debe ser un número. (por favor, use punto (.) en vez de coma (,) para marcar el inicio de los números decimales)",
+          "number.min": "El campo iva debe ser un número positivo o cero.",
+        }),
       })
     ),
 });

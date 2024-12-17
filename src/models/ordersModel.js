@@ -30,6 +30,11 @@ const orderSchema = new mongoose.Schema(
           required: true,
           min: 0,
         },
+        iva: {
+          type: Number,
+          required: false,
+          min: 0,
+        },
       },
     ],
     status: {
