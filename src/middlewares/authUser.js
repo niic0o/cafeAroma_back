@@ -59,21 +59,9 @@ const get = async (req, res) => {
   }
 };
 
-/*
-const getPayload = async (req, res) => {
-  const token = "12";
-console.log(token);
-  if (!token) {
-    return res.status(401).send({ error: "No ha iniciado sesión" });
-  }
- 
-  res.status(200).send(token);
-};
-*/
 const authUser = {
   authenticate,
   authorize,
-  //getPayload,
   get,
 };
 

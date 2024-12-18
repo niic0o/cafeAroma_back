@@ -86,7 +86,6 @@ const setCommentAsReadController = async (id) => {
 const setCommentAsUnreadController = async (id) => {
   try {
     const newComment = { leido: "NO" };
-    console.log(id)
     const updatedComment = await comments.findByIdAndUpdate(
       id,
       newComment,

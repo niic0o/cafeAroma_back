@@ -19,8 +19,8 @@ Para conocer los métodos HTTP disponibles a ser consumidos y el Schema de datos
 La aplicación está disponible en el siguiente enlace: [Página Web Cafe Aroma](https://cafe-aroma-sand.vercel.app/)
 
 ## Metodología de Trabajo
-- **Metodología**: Agile: Scrum
-- **Ciclo de Vida**: (ver apartado)
+- **Metodología**: Agile: Técnica Scrum
+- **Ciclo de Vida**: Iterativo (ver apartado)
 - **Equipo**: (max | med | min)
 
   - **Nicolas Sena**: (Backend | Scrum Master | Frontend) 

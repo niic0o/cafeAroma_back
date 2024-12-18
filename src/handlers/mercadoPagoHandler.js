@@ -26,7 +26,6 @@ const createPreferenceHandler = async (req, res) => {
       statement_descriptor: "Café Aroma",
       external_reference: orderId, // Aquí se envía la merchant_order_id
     };
-    console.log(mp);
     const response = await createPrefenceController(mp);
     res.json({ id: response.id });
   } catch (error) {

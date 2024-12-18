@@ -40,9 +40,7 @@ Uso find para obtener el primer objeto que cumpla con la condicion
 const getOneUserController = async (id) => {
   try {
     //recordar que params envia 'string' hay que parsear a Number
-    console.log(id)
     const userById = await users.findById(id);
-    console.log(userById);
     return userById;
   } catch (error) {
     throwError500(error);
